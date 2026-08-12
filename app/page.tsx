@@ -1,14 +1,25 @@
 import HeroCarousel from "@/components/home/HeroCarousel";
-import ProductCard from "@/components/ProductCard";
 import CategoryTiles from "@/components/home/CategoryTiles";
+import ProductSection from "@/components/home/ProductSection";
+import PromoBanner from "@/components/home/PromoBanner";
+import CollectionTiles from "@/components/home/CollectionTiles";
+import BlogSection from "@/components/home/BlogSection";
+import SocialGallery from "@/components/home/SocialGallery";
 import homepageProducts from "@/data/homepage-products.json";
 import { getProduct } from "@/lib/commerce/getProduct";
 
-const bestSellers = homepageProducts
-  .filter((product) => product.homepageSections.includes("best-seller"))
-  .map((product) => getProduct(product.slug))
-  .filter((product) => product !== undefined)
-  .slice(0, 4);
+function getHomepageProducts(section: string) {
+  return homepageProducts
+    .filter((entry) => entry.homepageSections.includes(section))
+    .flatMap((entry) => {
+      const product = getProduct(entry.slug);
+      return product ? [product] : [];
+    });
+}
+
+const bestSellers = getHomepageProducts("best-seller");
+const featuredProducts = getHomepageProducts("featured-products");
+const justLanded = getHomepageProducts("just-landed-casuals");
 
 export default function Home() {
   return (
@@ -17,15 +28,32 @@ export default function Home() {
 
       <CategoryTiles />
 
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <h2 className="mb-8 text-center text-2xl font-semibold">Best Seller</h2>
+      <ProductSection
+        title="Best Sellers"
+        eyebrow="Most loved"
+        products={bestSellers}
+      />
 
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-          {bestSellers.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </section>
+      <PromoBanner />
+
+      <ProductSection
+        title="Featured Products"
+        eyebrow="Explore more"
+        products={featuredProducts}
+      />
+
+      <CollectionTiles />
+
+      <ProductSection
+        title="Just Landed Casuals"
+        eyebrow="New arrivals"
+        products={justLanded}
+        viewAllHref="/products?gender=men&q=casual"
+      />
+
+      <BlogSection />
+
+      <SocialGallery />
     </main>
   );
 }
