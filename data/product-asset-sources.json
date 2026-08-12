@@ -1,0 +1,694 @@
+[
+  {
+    "productName": "Bata DRIVER Rubber Loafer",
+    "productPageUrl": "https://www.batabd.com/products/bata-driver-rubber-loafer-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_24cc39e2-72c9-4024-9998-bc5c1906cf99.jpg?v=1756579100",
+        "localFilename": "public/products/bata-driver-rubber-loafer/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_c5a0f827-0866-44e8-9713-518734ba5f42.jpg?v=1756579100",
+        "localFilename": "public/products/bata-driver-rubber-loafer/2.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/3_b57423e6-6fa4-4bc1-9dde-0443be5f604e.jpg?v=1756579100",
+        "localFilename": "public/products/bata-driver-rubber-loafer/3.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/4_2c856d9d-9027-452a-a0cb-2648da7d82b2.jpg?v=1756579100",
+        "localFilename": "public/products/bata-driver-rubber-loafer/4.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "North Star Canvas Shoe",
+    "productPageUrl": "https://www.batabd.com/products/north-star-canvas-shoe-17",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/8899032_700X650_1.jpg?v=1756580437",
+        "localFilename": "public/products/north-star-canvas-shoe/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/8899032_700X650_2.jpg?v=1756580437",
+        "localFilename": "public/products/north-star-canvas-shoe/2.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/8899032_700X650_3.jpg?v=1756580438",
+        "localFilename": "public/products/north-star-canvas-shoe/3.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/8899032_700X650_4.jpg?v=1756580438",
+        "localFilename": "public/products/north-star-canvas-shoe/4.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "POWER SPEEDCELL MENS SPORTS",
+    "productPageUrl": "https://www.batabd.com/products/power-speedcell-mens-sports-4",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286120_2.jpg?v=1781526439",
+        "localFilename": "public/products/power-speedcell-mens-sports/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286120_1.jpg?v=1781526439",
+        "localFilename": "public/products/power-speedcell-mens-sports/2.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286120_3.jpg?v=1781526439",
+        "localFilename": "public/products/power-speedcell-mens-sports/3.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286120_4.jpg?v=1781526439",
+        "localFilename": "public/products/power-speedcell-mens-sports/4.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286120_5.jpg?v=1781526439",
+        "localFilename": "public/products/power-speedcell-mens-sports/5.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Hush Puppies IRVING BANKER Slip-On Formal Shoe",
+    "productPageUrl": "https://www.batabd.com/products/hush-puppies-irving-banker-slip-on-formal-shoe",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_8610acc0-864e-4126-ab20-86205ad5bfbd.jpg?v=1756578973",
+        "localFilename": "public/products/hush-puppies-irving-banker-slip-on-formal-shoe/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_14431d83-46b5-4e5c-8345-efd51b2baf7b.jpg?v=1756578973",
+        "localFilename": "public/products/hush-puppies-irving-banker-slip-on-formal-shoe/2.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/3_5f8d5584-ffdc-4bf6-9033-e2e8d5ab31cc.jpg?v=1756578973",
+        "localFilename": "public/products/hush-puppies-irving-banker-slip-on-formal-shoe/3.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/4_97dbede6-9102-4005-aefa-5e8af8bbd901.jpg?v=1756578973",
+        "localFilename": "public/products/hush-puppies-irving-banker-slip-on-formal-shoe/4.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Power Slides For Men",
+    "productPageUrl": "https://www.batabd.com/products/power-recycled-slipper-for-men-4",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_55f25ce3-c035-40d6-baf8-1643ba858390.jpg?v=1756579804",
+        "localFilename": "public/products/power-recycled-slipper-for-men-4/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_3baf70f5-9b45-4f7a-a6e7-4eba306e9d92.jpg?v=1756579804",
+        "localFilename": "public/products/power-recycled-slipper-for-men-4/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Champion Slip-On Sneaker by North Star",
+    "productPageUrl": "https://www.batabd.com/products/champion-slip-on-sneaker-by-north-star",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/01.jpg?v=1756579999",
+        "localFilename": "public/products/champion-slip-on-sneaker-by-north-star/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/03.jpg?v=1756579999",
+        "localFilename": "public/products/champion-slip-on-sneaker-by-north-star/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "North Star VALERIO Casual Lace-Up Sneaker for Men",
+    "productPageUrl": "https://www.batabd.com/products/north-star-valerio-casual-lace-up-sneaker-for-men-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_53d885aa-4092-4e32-80c6-d2d023d64ede.jpg?v=1756578506",
+        "localFilename": "public/products/north-star-valerio-casual-lace-up-sneaker-for-men-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_5ed1c76c-302d-41d8-b180-63a51acb0821.jpg?v=1756578505",
+        "localFilename": "public/products/north-star-valerio-casual-lace-up-sneaker-for-men-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BATA (WOMEN) RAY-10 LADIES CHAPPALS LADIES SLIPPER",
+    "productPageUrl": "https://www.batabd.com/products/bata-women-ray-10-ladies-chappals-ladies-slipper",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/5714010_2.jpg?v=1756573544",
+        "localFilename": "public/products/bata-women-ray-10-ladies-chappals-ladies-slipper/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/5714010_1.jpg?v=1756573544",
+        "localFilename": "public/products/bata-women-ray-10-ladies-chappals-ladies-slipper/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata MATTE Toe-Post Sandal for Men",
+    "productPageUrl": "https://www.batabd.com/products/bata-matte-toe-post-sandal-for-men-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_fd3286a2-6847-4e69-88ff-91afc5ea95f1.jpg?v=1756575257",
+        "localFilename": "public/products/bata-matte-toe-post-sandal-for-men-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_72a31654-4e04-4700-b71a-c28c14a31ad7.jpg?v=1756575257",
+        "localFilename": "public/products/bata-matte-toe-post-sandal-for-men-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata PACIFIC Slip-On Sandal for Men",
+    "productPageUrl": "https://www.batabd.com/products/bata-pacific-slip-on-sandal-for-men-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_0e10a9b5-a71a-4c82-bf40-c86c9fd7b8b1.jpg?v=1756577361",
+        "localFilename": "public/products/bata-pacific-slip-on-sandal-for-men-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_5ebf8c38-c126-4279-9741-771e18287a27.jpg?v=1756577361",
+        "localFilename": "public/products/bata-pacific-slip-on-sandal-for-men-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata MEN'S BELT",
+    "productPageUrl": "https://www.batabd.com/products/bata-mens-belt-10",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_b1f0a2bb-54e5-457c-9490-ce37fc061c7a.jpg?v=1756578899",
+        "localFilename": "public/products/bata-mens-belt-10/1.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER VICTOR WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-victor-weinbrenner",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8407601_2.jpg?v=1773306325",
+        "localFilename": "public/products/weinbrenner-victor-weinbrenner/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8407601_1.jpg?v=1773306325",
+        "localFilename": "public/products/weinbrenner-victor-weinbrenner/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata MATTE Toe-Post Sandal for Men",
+    "productPageUrl": "https://www.batabd.com/products/bata-matte-toe-post-sandal-for-men",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_d3891c72-6f07-424d-8f35-756014a2b168.jpg?v=1756575260",
+        "localFilename": "public/products/bata-matte-toe-post-sandal-for-men/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_3bdef1ac-d98c-4e3c-bc9a-d43504db2767.jpg?v=1756575260",
+        "localFilename": "public/products/bata-matte-toe-post-sandal-for-men/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "NORTH STAR SKATER MENS CANVAS F.TIME",
+    "productPageUrl": "https://www.batabd.com/products/north-star-luino-mens-canvas-f-time-copy-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8201002_2.jpg?v=1783844241",
+        "localFilename": "public/products/north-star-luino-mens-canvas-f-time-copy-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8201002_1.jpg?v=1783844241",
+        "localFilename": "public/products/north-star-luino-mens-canvas-f-time-copy-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "POWER SPEEDCELL MENS SPORTS",
+    "productPageUrl": "https://www.batabd.com/products/power-speedcell-mens-sports-2",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286002_2.jpg?v=1781526267",
+        "localFilename": "public/products/power-speedcell-mens-sports-2/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8286002_1.jpg?v=1781526267",
+        "localFilename": "public/products/power-speedcell-mens-sports-2/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata Digital Gift Card 5000Tk",
+    "productPageUrl": "https://www.batabd.com/products/bata-digital-gift-card-5000tk",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/GVNEW2026-01Large.jpg?v=1776654960",
+        "localFilename": "public/products/bata-digital-gift-card-5000tk/1.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata Digital Gift Card 4000Tk",
+    "productPageUrl": "https://www.batabd.com/products/bata-digital-gift-card-4000tk",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/GVNEW2026-05Large.jpg?v=1776655213",
+        "localFilename": "public/products/bata-digital-gift-card-4000tk/1.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata PACIFIC Toe-Post Sandal for Men",
+    "productPageUrl": "https://www.batabd.com/products/bata-pacific-toe-post-sandal-for-men",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_6d332cb1-c57e-49b0-a2b1-9a608bec70c9.jpg?v=1756577354",
+        "localFilename": "public/products/bata-pacific-toe-post-sandal-for-men/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_735ea86c-082c-4cd8-81b4-a4efefc3c247.jpg?v=1756577354",
+        "localFilename": "public/products/bata-pacific-toe-post-sandal-for-men/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "FLOATZ WINA Thong Sandal for Women",
+    "productPageUrl": "https://www.batabd.com/products/floatz-wina-thong-sandal-for-women-4",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_e0121218-b206-40fc-82eb-00a029a2238e.jpg?v=1756576395",
+        "localFilename": "public/products/floatz-wina-thong-sandal-for-women-4/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_32e44afa-2d52-49ae-bc2e-4e0dfb21c44c.jpg?v=1756576395",
+        "localFilename": "public/products/floatz-wina-thong-sandal-for-women-4/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata Digital Gift Card 1000Tk",
+    "productPageUrl": "https://www.batabd.com/products/bata-digital-gift-card-1000tk",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/GVNEW2026-02Large.jpg?v=1776655266",
+        "localFilename": "public/products/bata-digital-gift-card-1000tk/1.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "FLOATZ WATSON - Clog Sandal for Kids",
+    "productPageUrl": "https://www.batabd.com/products/floatz-watson-clog-sandal-for-kids-4",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_8504f36d-899e-4cff-9285-ee302e50a4f1.jpg?v=1756576107",
+        "localFilename": "public/products/floatz-watson-clog-sandal-for-kids-4/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_de2871f3-af0b-4480-aca5-5922ba175b90.jpg?v=1756576107",
+        "localFilename": "public/products/floatz-watson-clog-sandal-for-kids-4/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "FLOATZ WATSON - Clog Sandal for Kids",
+    "productPageUrl": "https://www.batabd.com/products/floatz-watson-clog-sandal-for-kids-3",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_9256d1a6-1c98-4a8c-9bf8-ceb880c10535.jpg?v=1756576113",
+        "localFilename": "public/products/floatz-watson-clog-sandal-for-kids-3/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_2bc3d36c-bc7d-475e-b985-29f62f92fd17.jpg?v=1756576112",
+        "localFilename": "public/products/floatz-watson-clog-sandal-for-kids-3/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BUBBLE GUMMERS PRIMA Sandal",
+    "productPageUrl": "https://www.batabd.com/products/bubble-gummers-prima-sandal",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_84562a59-f1f6-4572-8cd3-d9ec04176d5f.jpg?v=1756579074",
+        "localFilename": "public/products/bubble-gummers-prima-sandal/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_6f2996b9-fde8-43de-8ca2-37a3b6b0bccc.jpg?v=1756579074",
+        "localFilename": "public/products/bubble-gummers-prima-sandal/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "RABIA Little Girls' Ballerina",
+    "productPageUrl": "https://www.batabd.com/products/rabia-little-girls-ballerina-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_0f6939ff-c388-4f1d-bc27-d6fc5b1f7cad.jpg?v=1756580082",
+        "localFilename": "public/products/rabia-little-girls-ballerina-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_17a7c1b2-a5b9-41b0-9d78-10d90b58793a.jpg?v=1756580082",
+        "localFilename": "public/products/rabia-little-girls-ballerina-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Ben10 Sneaker for Kids",
+    "productPageUrl": "https://www.batabd.com/products/ben10-sneaker-for-kids",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_82a168c1-3972-4cc0-8dfa-c561cb47cc9a.jpg?v=1756578836",
+        "localFilename": "public/products/ben10-sneaker-for-kids/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_7190c4f6-3eb9-444f-b671-d5ca5fdafb1f.jpg?v=1756578835",
+        "localFilename": "public/products/ben10-sneaker-for-kids/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Men's Casual Open Back Moc-toe Slippers",
+    "productPageUrl": "https://www.batabd.com/products/mens-casual-open-back-moc-toe-slippers",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_893e4db9-52df-4880-a8c5-8a2c2c7edba0.jpg?v=1756579962",
+        "localFilename": "public/products/mens-casual-open-back-moc-toe-slippers/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_26d88dee-aeb6-4b60-917e-8d50cf36364c.jpg?v=1756579962",
+        "localFilename": "public/products/mens-casual-open-back-moc-toe-slippers/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "B.FIRST School Shoe",
+    "productPageUrl": "https://www.batabd.com/products/b-first-school-shoe-2",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/DSC00624.jpg?v=1756579451",
+        "localFilename": "public/products/b-first-school-shoe-2/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/DSC00623.jpg?v=1756579451",
+        "localFilename": "public/products/b-first-school-shoe-2/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BUBBLE GUMMERS QUAN Belt Sandal",
+    "productPageUrl": "https://www.batabd.com/products/bubble-gummers-quan-belt-sandal-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_1c9b26ba-1e50-4e30-bd72-cf999632125e.jpg?v=1756578594",
+        "localFilename": "public/products/bubble-gummers-quan-belt-sandal-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_86ae258a-1ac4-4601-a281-459709a2fd17.jpg?v=1756578594",
+        "localFilename": "public/products/bubble-gummers-quan-belt-sandal-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "FIONA Little Girls' Sandal",
+    "productPageUrl": "https://www.batabd.com/products/fiona-little-girls-sandal",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_77a208b3-04b3-4d7c-a668-a30c56e45533.jpg?v=1756580077",
+        "localFilename": "public/products/fiona-little-girls-sandal/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_4754a413-d121-408e-80bc-bc62f6de4f80.jpg?v=1756580077",
+        "localFilename": "public/products/fiona-little-girls-sandal/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BubbleGummers SILVIA Shinny Belt Sandal for Little Girls",
+    "productPageUrl": "https://www.batabd.com/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_addc5bc0-9f23-41bc-a860-2c6245e2d661.jpg?v=1756576692",
+        "localFilename": "public/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_8b1ffd6f-7389-4383-bfec-8548fe66fe7b.jpg?v=1756576691",
+        "localFilename": "public/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "FIONA Little Girls' Sandal",
+    "productPageUrl": "https://www.batabd.com/products/fiona-little-girls-sandal-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_8b3f6151-0a1d-4100-8c7d-4611dc326420.jpg?v=1756580073",
+        "localFilename": "public/products/fiona-little-girls-sandal-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_2909deda-6a75-4891-aee5-0bc4254ee910.jpg?v=1756580073",
+        "localFilename": "public/products/fiona-little-girls-sandal-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BubbleGummers SILVIA Shinny Belt Sandal for Little Girls",
+    "productPageUrl": "https://www.batabd.com/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls-2",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_a87609cd-a42a-4e42-8bb7-0f72026f9ab8.jpg?v=1756576689",
+        "localFilename": "public/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls-2/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_3e1c3423-19bc-438d-bfff-69d30ae4f136.jpg?v=1756576689",
+        "localFilename": "public/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls-2/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BubbleGummers SILVIA Shinny Belt Sandal for Little Girls",
+    "productPageUrl": "https://www.batabd.com/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_eb291b92-7aa9-46aa-be10-6523b944d490.jpg?v=1756576763",
+        "localFilename": "public/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_71bd8b3e-7f10-4564-a775-fe2bb9c2fcae.jpg?v=1756576763",
+        "localFilename": "public/products/bubblegummers-silvia-shinny-belt-sandal-for-little-girls/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "North Star ARGON Lace-Up Lifestyle Sneaker for Men",
+    "productPageUrl": "https://www.batabd.com/products/north-star-argon-lace-up-lifestyle-sneaker-for-men",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_8e4f7875-6e84-42e3-870e-6bbce0731611.jpg?v=1756578021",
+        "localFilename": "public/products/north-star-argon-lace-up-lifestyle-sneaker-for-men/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_79062a1f-5cf4-45d4-a62f-078efbb11d9e.jpg?v=1756578021",
+        "localFilename": "public/products/north-star-argon-lace-up-lifestyle-sneaker-for-men/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata Slip-On Formal Shoe for Men",
+    "productPageUrl": "https://www.batabd.com/products/bata-slip-on-formal-shoe-for-men",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_36973b86-db28-4b1f-a402-74a001d32feb.jpg?v=1756577895",
+        "localFilename": "public/products/bata-slip-on-formal-shoe-for-men/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_5f3a3bc6-95e3-4843-a1c8-347589ffd841.jpg?v=1756577894",
+        "localFilename": "public/products/bata-slip-on-formal-shoe-for-men/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "HP Aaron Derby Shoe",
+    "productPageUrl": "https://www.batabd.com/products/hp-aaron-derby-shoe",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_40aef6fb-e6ad-4ceb-8c64-87cf5e864d81.jpg?v=1756580248",
+        "localFilename": "public/products/hp-aaron-derby-shoe/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_009eb4f5-1893-43b2-ab5b-567fca0a2eae.jpg?v=1756580248",
+        "localFilename": "public/products/hp-aaron-derby-shoe/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata BELLA Toe-Post Sandal for Women",
+    "productPageUrl": "https://www.batabd.com/products/bata-bella-toe-post-sandal-for-women-5",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_ba2e793a-93f2-4d3d-8f3a-ae967300f4d3.jpg?v=1756576649",
+        "localFilename": "public/products/bata-bella-toe-post-sandal-for-women-5/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_2e7c7e77-2d7b-4018-b841-c4f76e192fe9.jpg?v=1756576649",
+        "localFilename": "public/products/bata-bella-toe-post-sandal-for-women-5/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata BARLE Slingback Block Heel for Women",
+    "productPageUrl": "https://www.batabd.com/products/bata-barle-slingback-block-heel-for-women-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_a85e8fb9-503c-420f-bfc5-e30b477051e6.jpg?v=1756574543",
+        "localFilename": "public/products/bata-barle-slingback-block-heel-for-women-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_1f825f5f-a4c4-4b4d-91c7-154683d99a0c.jpg?v=1756574543",
+        "localFilename": "public/products/bata-barle-slingback-block-heel-for-women-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata RISA Belt Flat Sandal for Women",
+    "productPageUrl": "https://www.batabd.com/products/bata-risa-belt-flat-sandal-for-women",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/2_acf9ebc7-8457-4c35-9e12-430b89cd6b1e.jpg?v=1756576673",
+        "localFilename": "public/products/bata-risa-belt-flat-sandal-for-women/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/1_b2635537-955d-4eaf-92ee-dc8ce5dec17f.jpg?v=1756576672",
+        "localFilename": "public/products/bata-risa-belt-flat-sandal-for-women/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "Bata Black Formal Shoe",
+    "productPageUrl": "https://www.batabd.com/products/bata-black-formal-shoe",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/2_f55b98b0-2099-415c-ac3e-afdad4ecae12.jpg?v=1756580244",
+        "localFilename": "public/products/bata-black-formal-shoe/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/products/1_ebd34e85-a61c-4d8c-9058-3df1bc2817c2.jpg?v=1756580244",
+        "localFilename": "public/products/bata-black-formal-shoe/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER HICKROY WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-hickroy-weinbrenner-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8616031_2.jpg?v=1783922877",
+        "localFilename": "public/products/weinbrenner-hickroy-weinbrenner-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8616031_1.jpg?v=1783922877",
+        "localFilename": "public/products/weinbrenner-hickroy-weinbrenner-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER HICKROY WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-hickroy-weinbrenner",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8614031_2.jpg?v=1783922664",
+        "localFilename": "public/products/weinbrenner-hickroy-weinbrenner/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8614031_1.jpg?v=1783922664",
+        "localFilename": "public/products/weinbrenner-hickroy-weinbrenner/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER WILDWOOD WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-wildwood-weinbrenner-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8406086_2.jpg?v=1783922519",
+        "localFilename": "public/products/weinbrenner-wildwood-weinbrenner-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8406086_1.jpg?v=1783922519",
+        "localFilename": "public/products/weinbrenner-wildwood-weinbrenner-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER RIDFEWALKER WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-ridfewalker-weinbrenner",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8406085_2.jpg?v=1783922306",
+        "localFilename": "public/products/weinbrenner-ridfewalker-weinbrenner/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8406085_1.jpg?v=1783922306",
+        "localFilename": "public/products/weinbrenner-ridfewalker-weinbrenner/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER WILDWOOD WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-wildwood-weinbrenner",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8404086_2.jpg?v=1783921689",
+        "localFilename": "public/products/weinbrenner-wildwood-weinbrenner/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8404086_1.jpg?v=1783921689",
+        "localFilename": "public/products/weinbrenner-wildwood-weinbrenner/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "WEINBRENNER CRAWFORD WEINBRENNER",
+    "productPageUrl": "https://www.batabd.com/products/weinbrenner-crawford-weinbrenner",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8217026_2.jpg?v=1783921401",
+        "localFilename": "public/products/weinbrenner-crawford-weinbrenner/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8217026_1.jpg?v=1783921401",
+        "localFilename": "public/products/weinbrenner-crawford-weinbrenner/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BATA (MEN) CIRCLE MENS CASUAL",
+    "productPageUrl": "https://www.batabd.com/products/bata-men-circle-mens-casual-1",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8544155_2.jpg?v=1783843991",
+        "localFilename": "public/products/bata-men-circle-mens-casual-1/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8544155_1.jpg?v=1783843991",
+        "localFilename": "public/products/bata-men-circle-mens-casual-1/2.jpg"
+      }
+    ]
+  },
+  {
+    "productName": "BATA (MEN) CIRCLE MENS CASUAL",
+    "productPageUrl": "https://www.batabd.com/products/bata-men-circle-mens-casual",
+    "images": [
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8546155_2.jpg?v=1783842933",
+        "localFilename": "public/products/bata-men-circle-mens-casual/1.jpg"
+      },
+      {
+        "originalImageUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/8546155_1.jpg?v=1783842933",
+        "localFilename": "public/products/bata-men-circle-mens-casual/2.jpg"
+      }
+    ]
+  }
+]

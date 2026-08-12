@@ -1,0 +1,236 @@
+[
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Up-to-50_-16-web-banner.jpg?v=1786449461",
+    "localPath": "/homepage/hero/up-to-50-percent-desktop.jpg",
+    "description": "Up to 50% promotional hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Up-to-50_-450x300-mob_42869c48-6411-4f5c-883a-76a56c8ca30b.jpg?v=1786449461",
+    "localPath": "/homepage/hero/up-to-50-percent-mobile.jpg",
+    "description": "Up to 50% promotional hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Floatz-2026-new-web-banner_jpg.jpg?v=1784088320",
+    "localPath": "/homepage/hero/floatz-2026-desktop.jpg",
+    "description": "Floatz 2026 hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Floatz-2026-new-450x300-mob_jpg.jpg?v=1784088320",
+    "localPath": "/homepage/hero/floatz-2026-mobile.jpg",
+    "description": "Floatz 2026 hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/EMI-available-web-banner_jpg.jpg?v=1783597078",
+    "localPath": "/homepage/hero/emi-available-desktop.jpg",
+    "description": "EMI availability hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/EMI-available-450x300_jpg.jpg?v=1783597077",
+    "localPath": "/homepage/hero/emi-available-mobile.jpg",
+    "description": "EMI availability hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Men_s-sandal-web-banner2_jpg.jpg?v=1781150699",
+    "localPath": "/homepage/hero/mens-sandals-desktop.jpg",
+    "description": "Men’s sandals hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Men_s-sandal-450x300-mob2_jpg.jpg?v=1781150697",
+    "localPath": "/homepage/hero/mens-sandals-mobile.jpg",
+    "description": "Men’s sandals hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Ladies-sandal-web-banner2_jpg.jpg?v=1781150699",
+    "localPath": "/homepage/hero/ladies-sandals-desktop.jpg",
+    "description": "Ladies’ sandals hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Ladies-sandal-450x300-mob.jpg?v=1772380838",
+    "localPath": "/homepage/hero/ladies-sandals-mobile.jpg",
+    "description": "Ladies’ sandals hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Ladies-bag-web-banner.jpg?v=1767505001",
+    "localPath": "/homepage/hero/ladies-bags-desktop.jpg",
+    "description": "Ladies’ bags hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Ladies-bag-450x300-mob.jpg?v=1767505000",
+    "localPath": "/homepage/hero/ladies-bags-mobile.jpg",
+    "description": "Ladies’ bags hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Men_s-casuals-web-banner.jpg?v=1740655602",
+    "localPath": "/homepage/hero/mens-casuals-desktop.jpg",
+    "description": "Men’s casual shoes hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Men_s-casual-450x300.jpg?v=1740655623",
+    "localPath": "/homepage/hero/mens-casuals-mobile.jpg",
+    "description": "Men’s casual shoes hero, mobile"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/ballerina-web-banner.jpg?v=1755082566",
+    "localPath": "/homepage/hero/ballerina-desktop.jpg",
+    "description": "Ballerina collection hero, desktop"
+  },
+  {
+    "section": "hero",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/ballerina-450x300.jpg?v=1755082594",
+    "localPath": "/homepage/hero/ballerina-mobile.jpg",
+    "description": "Ballerina collection hero, mobile"
+  },
+  {
+    "section": "categories",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/men_1_9aa725ad-22f1-4b68-b28e-a382799b0e19.jpg?v=1729053445",
+    "localPath": "/homepage/categories/men.jpg",
+    "description": "Men collection tile"
+  },
+  {
+    "section": "categories",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/women_1_8528057d-f632-4127-8c37-11acc43f717d.jpg?v=1729053430",
+    "localPath": "/homepage/categories/women.jpg",
+    "description": "Women collection tile"
+  },
+  {
+    "section": "categories",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/kids_1_5c489cfe-ec4b-4ea2-94dc-933f182557ae.jpg?v=1729053506",
+    "localPath": "/homepage/categories/kids.jpg",
+    "description": "Kids collection tile"
+  },
+  {
+    "section": "categories",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/accessories_1_2d07230f-c6d9-40d0-a6d4-65e560acdf93.jpg?v=1729053611",
+    "localPath": "/homepage/categories/accessories.jpg",
+    "description": "Accessories collection tile"
+  },
+  {
+    "section": "banners",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/New-GV-strip-banner_781614cc-05b9-4b26-9cba-19b2a5302a90.jpg?v=1785759295",
+    "localPath": "/homepage/banners/gift-voucher.jpg",
+    "description": "Gift voucher promotional strip"
+  },
+  {
+    "section": "collections",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/NS-web-Square-New-_jpg.jpg?v=1768964000",
+    "localPath": "/homepage/collections/north-star-curated.jpg",
+    "description": "North Star curated hand-picked collection"
+  },
+  {
+    "section": "collections",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/Mens-cool-casual-square-4_jpg.jpg?v=1768963616",
+    "localPath": "/homepage/collections/mens-casual.jpg",
+    "description": "Men’s casual hand-picked collection"
+  },
+  {
+    "section": "collections",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/ladies-casual_jpg.jpg?v=1768963616",
+    "localPath": "/homepage/collections/ladies-casual.jpg",
+    "description": "Ladies’ casual Pick Your Favourites tile"
+  },
+  {
+    "section": "collections",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/men_s-formal1_jpg.jpg?v=1768963615",
+    "localPath": "/homepage/collections/mens-formal.jpg",
+    "description": "Men’s formal Pick Your Favourites tile"
+  },
+  {
+    "section": "collections",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/ladies-bag_jpg.jpg?v=1768963616",
+    "localPath": "/homepage/collections/ladies-bags.jpg",
+    "description": "Ladies’ bags Pick Your Favourites tile"
+  },
+  {
+    "section": "blog",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/articles/founders-day_787b6d5e-270d-4c0a-99ce-cc9f4ddbc510.jpg?v=1762235207",
+    "localPath": "/homepage/blog/founders-day-2025.jpg",
+    "description": "Founder’s Day 2025 article thumbnail"
+  },
+  {
+    "section": "blog",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/articles/SF-25-26-web-Collection-page-banner.jpg?v=1761795328",
+    "localPath": "/homepage/blog/sneaker-fest-2025.jpg",
+    "description": "Sneaker Fest 2025 article thumbnail"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/carry.jpg?v=1720335667",
+    "localPath": "/homepage/instagram/carry.jpg",
+    "description": "Instagram tile: carry"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/floatz.jpg?v=1720336243",
+    "localPath": "/homepage/instagram/floatz.jpg",
+    "description": "Instagram tile: Floatz"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/north.jpg?v=1720336875",
+    "localPath": "/homepage/instagram/north-star.jpg",
+    "description": "Instagram tile: North Star"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/floatz1.jpg?v=1720337449",
+    "localPath": "/homepage/instagram/floatz-sandals.jpg",
+    "description": "Instagram tile: Floatz sandals"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/batae.jpg?v=1720338097",
+    "localPath": "/homepage/instagram/bata-energy.jpg",
+    "description": "Instagram tile: Bata Energy"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/aishoe.jpg?v=1720338268",
+    "localPath": "/homepage/instagram/ai-shoe.jpg",
+    "description": "Instagram tile: AI shoe"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/234_fefc05a8-6063-42e9-a013-119ac6f8d7a8.jpg?v=1720936117",
+    "localPath": "/homepage/instagram/post-234.jpg",
+    "description": "Instagram content tile"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/43.jpg?v=1720936214",
+    "localPath": "/homepage/instagram/post-43.jpg",
+    "description": "Instagram content tile"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/comp1.jpg?v=1692859629",
+    "localPath": "/homepage/instagram/comp1.jpg",
+    "description": "Instagram content tile"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/north1.jpg?v=1692859497",
+    "localPath": "/homepage/instagram/north-star-1.jpg",
+    "description": "Instagram tile: North Star"
+  },
+  {
+    "section": "instagram",
+    "sourceUrl": "https://cdn.shopify.com/s/files/1/2287/9679/files/56.jpg?v=1720936312",
+    "localPath": "/homepage/instagram/post-56.jpg",
+    "description": "Instagram content tile"
+  }
+]
