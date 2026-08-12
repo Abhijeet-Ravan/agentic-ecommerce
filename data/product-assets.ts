@@ -196,4 +196,60 @@ export const productAssets = {
     "/products/bata-men-circle-mens-casual/1.jpg",
     "/products/bata-men-circle-mens-casual/2.jpg",
   ],
-};
+  "north-star-julie-ladies-canvas-f-time-2": [
+    "/products/north-star-julie-ladies-canvas-f-time-2/1.jpg",
+    "/products/north-star-julie-ladies-canvas-f-time-2/2.jpg",
+  ],
+  "north-star-barbaro-ladies-canvas-f-time-1": [
+    "/products/north-star-barbaro-ladies-canvas-f-time-1/1.jpg",
+    "/products/north-star-barbaro-ladies-canvas-f-time-1/2.jpg",
+  ],
+  "north-star-julie-ladies-canvas-f-time-1": [
+    "/products/north-star-julie-ladies-canvas-f-time-1/1.jpg",
+    "/products/north-star-julie-ladies-canvas-f-time-1/2.jpg",
+  ],
+  "north-star-skater-ladies-canvas-f-time": [
+    "/products/north-star-skater-ladies-canvas-f-time/1.jpg",
+    "/products/north-star-skater-ladies-canvas-f-time/2.jpg",
+  ],
+  "light-easy-valentino-ladies-chappals-1": [
+    "/products/light-easy-valentino-ladies-chappals-1/1.jpg",
+    "/products/light-easy-valentino-ladies-chappals-1/2.jpg",
+  ],
+  "comfit-celia-ladies-comfit": [
+    "/products/comfit-celia-ladies-comfit/1.jpg",
+    "/products/comfit-celia-ladies-comfit/2.jpg",
+  ],
+  "bata-women-belle-ladies-sandals-mid-hill-slip-on-1": [
+    "/products/bata-women-belle-ladies-sandals-mid-hill-slip-on-1/1.jpg",
+    "/products/bata-women-belle-ladies-sandals-mid-hill-slip-on-1/2.jpg",
+  ],
+  "bata-women-belle-ladies-sandals-mid-hill-slip-on": [
+    "/products/bata-women-belle-ladies-sandals-mid-hill-slip-on/1.jpg",
+    "/products/bata-women-belle-ladies-sandals-mid-hill-slip-on/2.jpg",
+  ],
+  "comfit-cicily-ladies-comfit-1": [
+    "/products/comfit-cicily-ladies-comfit-1/1.jpg",
+    "/products/comfit-cicily-ladies-comfit-1/2.jpg",
+  ],
+  "comfit-saba-ladies-comfit-2": [
+    "/products/comfit-saba-ladies-comfit-2/1.jpg",
+    "/products/comfit-saba-ladies-comfit-2/2.jpg",
+  ],
+  "bata-women-grace-ladies-closed-0-0": [
+    "/products/bata-women-grace-ladies-closed-0-0/1.jpg",
+    "/products/bata-women-grace-ladies-closed-0-0/2.jpg",
+  ],
+  "bata-women-ladies-bags-3": [
+    "/products/bata-women-ladies-bags-3/1.jpg",
+    "/products/bata-women-ladies-bags-3/2.jpg",
+  ],
+  "bata-women-gilbart-nubuck-bags-6": [
+    "/products/bata-women-gilbart-nubuck-bags-6/1.jpg",
+    "/products/bata-women-gilbart-nubuck-bags-6/2.jpg",
+  ],
+  "bata-women-guanto-bags-2": [
+    "/products/bata-women-guanto-bags-2/1.jpg",
+    "/products/bata-women-guanto-bags-2/2.jpg",
+  ],
+} as const;

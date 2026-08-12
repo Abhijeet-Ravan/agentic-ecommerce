@@ -1,21 +1,15 @@
 export type Product = {
   id: number;
   slug: string;
-
   name: string;
-  brand: string;
-  productCode: string;
-
   price: number;
-
-  gender: "men" | "women" | "kids";
-  category: string;
-  material: string;
-  color: string;
-
-  sizes: number[];
-
-  images: string[];
-
-  description: string;
+  images: readonly string[];
+  brand?: string;
+  gender?: "men" | "women" | "kids";
+  category?: string;
+  material?: string;
+  color?: string;
+  sizes?: number[];
+  productCode?: string;
+  description?: string;
 };
