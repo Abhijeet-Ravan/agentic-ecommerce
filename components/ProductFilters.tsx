@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 
 type FilterOptions = {
+  brands: string[];
   genders: string[];
   categories: string[];
   materials: string[];
@@ -101,6 +102,12 @@ export default function ProductFilters({ options }: ProductFiltersProps) {
         </button>
       </form>
 
+      <FilterSelect
+        label="Brand"
+        value={searchParams.get("brand") ?? ""}
+        options={options.brands}
+        onChange={(value) => updateParam("brand", value)}
+      />
       <FilterSelect
         label="Gender"
         value={searchParams.get("gender") ?? ""}

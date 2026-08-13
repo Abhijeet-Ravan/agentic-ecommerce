@@ -2,6 +2,7 @@ export type ProductSort = "relevance" | "price-asc" | "price-desc";
 
 export type ProductSearchFilters = {
   query?: string;
+  brand?: string;
   gender?: string;
   category?: string;
   material?: string;

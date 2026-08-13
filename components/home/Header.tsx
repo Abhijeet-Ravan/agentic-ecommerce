@@ -44,7 +44,9 @@ export default function Header() {
 
           {/* ACTIONS */}
           <div className="ml-auto flex items-center gap-6 text-sm">
-            <Link href="/cart">Cart ({cartCount})</Link>
+            <Link href="/cart" data-agni-id="header.cart">
+              Cart ({cartCount})
+            </Link>
           </div>
         </div>
       </div>

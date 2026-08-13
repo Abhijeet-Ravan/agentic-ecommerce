@@ -2,11 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { startTransition } from "react";
 import { useCart } from "@/context/CartContext";
 import { getProducts } from "@/lib/commerce/getProduct";
 
 export default function CartPage() {
+  const router = useRouter();
   const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
+
+  /**
+   * Checking out hands the order over, so the cart is emptied. Both happen in one
+   * transition — otherwise the empty-cart state paints for a frame before the
+   * navigation commits.
+   */
+  function checkout() {
+    startTransition(() => {
+      clearCart();
+      router.push("/checkout");
+    });
+  }
   const lines = cartItems.flatMap((item) => {
     const product = getProducts().find((candidate) => candidate.id === item.productId);
     return product ? [{ item, product }] : [];
@@ -18,7 +33,10 @@ export default function CartPage() {
 
   if (!lines.length) {
     return (
-      <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 text-center">
+      <main
+        className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 text-center"
+        data-agni-page="cart"
+      >
         <h1 className="text-3xl font-semibold">Your cart is empty</h1>
         <p className="mt-3 text-gray-600">Add a product to begin your order.</p>
         <Link
@@ -32,7 +50,7 @@ export default function CartPage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10" data-agni-page="cart">
       <div className="mb-8 flex items-end justify-between gap-4">
         <h1 className="text-3xl font-semibold">Shopping cart</h1>
         <button onClick={clearCart} className="text-sm underline">
@@ -108,10 +126,11 @@ export default function CartPage() {
           <span>Tk {subtotal.toLocaleString()}.00</span>
         </div>
         <button
-          disabled
-          className="w-full cursor-not-allowed bg-gray-300 py-4 font-semibold text-gray-600"
+          onClick={checkout}
+          data-agni-id="cart.checkout"
+          className="w-full bg-black py-4 font-semibold text-white"
         >
-          Proceed to Checkout (POC)
+          Proceed to Checkout
         </button>
       </div>
     </main>

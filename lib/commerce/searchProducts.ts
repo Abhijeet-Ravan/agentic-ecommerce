@@ -39,6 +39,7 @@ export function searchProducts(filters: ProductSearchFilters = {}) {
 
     return (
       queryMatches &&
+      matches(product.brand, filters.brand) &&
       matches(product.gender, filters.gender) &&
       categoryMatches &&
       matches(product.material, filters.material) &&
