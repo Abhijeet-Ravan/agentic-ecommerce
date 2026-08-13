@@ -1,11 +1,10 @@
 import type { NextRequest } from "next/server";
-import { catalogFacets } from "@/lib/agni/catalog";
+import { catalogFacets, describeRelaxation, relaxSearch } from "@/lib/agni/catalog";
 import { list, num, ok, openFunctionCall, queue, str } from "@/lib/agni/functionKit";
-import { searchProducts } from "@/lib/commerce/searchProducts";
 
 /**
- * `show_products` — put a filtered listing on the shopper's screen.
- * Refuses rather than navigating to an empty page.
+ * `show_products` — put a filtered listing on the shopper's screen. Loosens the
+ * filters rather than landing them on an empty page, and says what it loosened.
  */
 export async function POST(request: NextRequest) {
   const call = await openFunctionCall(request);
@@ -24,20 +23,25 @@ export async function POST(request: NextRequest) {
     minPrice: num(args, "min_price", "minPrice"),
     maxPrice: num(args, "max_price", "maxPrice"),
   };
-  const results = searchProducts(filters);
+  const relaxed = relaxSearch(filters);
 
-  if (!results.length) {
+  if (!relaxed.products.length) {
     const facets = catalogFacets();
 
     return ok(
-      `Nothing matches that, so I haven't moved the page. We do carry ${list(facets.brands)}. Suggest one of those.`,
+      `Nothing like that exists, so I haven't moved the page. We do carry ${list(facets.brands)}. Suggest one of those.`,
       { count: 0 },
     );
   }
 
+  const count = relaxed.products.length;
+  const top = relaxed.products[0].name;
+
   return queue(
     call.sessionId,
-    { type: "search_products", ...filters },
-    `Showing ${results.length} product${results.length === 1 ? "" : "s"} now. Top result: ${results[0].name}.`,
+    { type: "search_products", ...relaxed.filters },
+    relaxed.dropped.length
+      ? `${describeRelaxation(filters, relaxed.dropped)} I'm showing the closest ${count} instead, starting with ${top}. Tell the shopper what's missing before you describe these.`
+      : `Showing ${count} product${count === 1 ? "" : "s"} now. Top result: ${top}.`,
   );
 }

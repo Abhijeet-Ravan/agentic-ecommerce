@@ -117,6 +117,95 @@ export function resolveColorRequest(slug: string | undefined, color: string) {
   return { kind: "search" as const, ...firstNonEmpty([{ color }]) };
 }
 
+/**
+ * Least to most important: what a shopper is willing to give up first. Brand and
+ * colour go last because those are usually the whole request.
+ */
+const RELAX_ORDER = [
+  "material",
+  "size",
+  "minPrice",
+  "maxPrice",
+  "category",
+  "gender",
+  "query",
+  "color",
+  "brand",
+] as const satisfies readonly (keyof ProductSearchFilters)[];
+
+export type RelaxedSearch = {
+  products: ReturnType<typeof searchProducts>;
+  filters: ProductSearchFilters;
+  dropped: string[];
+};
+
+/**
+ * A search that answers "what CAN I offer?" rather than "did this exact
+ * combination match?". A voice agent stacks filters — brand and category and
+ * colour and gender — and one bad guess anywhere used to come back as a flat
+ * "we don't stock that", which the agent then said out loud to a shopper looking
+ * at the very shoe it was denying. Now the narrowest non-empty version wins, and
+ * the caller is told what had to give.
+ */
+export function relaxSearch(filters: ProductSearchFilters): RelaxedSearch {
+  const direct = searchProducts(filters);
+
+  if (direct.length) return { products: direct, filters, dropped: [] };
+
+  const working: ProductSearchFilters = { ...filters };
+  const dropped: string[] = [];
+
+  for (const key of RELAX_ORDER) {
+    if (working[key] === undefined) continue;
+
+    delete working[key];
+    dropped.push(key);
+
+    const products = searchProducts(working);
+
+    if (products.length) return { products, filters: { ...working }, dropped: [...dropped] };
+  }
+
+  return { products: [], filters: working, dropped };
+}
+
+/**
+ * Turns "I dropped brand and size" into something the agent can say. Dropping a
+ * brand or a colour is a denial the shopper needs to hear plainly — burying it
+ * as "ignoring brand" is how you end up offering Bata to someone who asked for
+ * Nike without ever saying we don't sell Nike.
+ */
+export function describeRelaxation(
+  original: ProductSearchFilters,
+  dropped: string[],
+) {
+  const sentences = dropped.map((key) => {
+    switch (key) {
+      case "brand":
+        return `We don't carry ${original.brand}.`;
+      case "color":
+        return `We have nothing in ${original.color}.`;
+      case "size":
+        return `Nothing in size ${original.size}.`;
+      case "gender":
+        return `Nothing in the ${original.gender}'s range for that.`;
+      case "category":
+        return `No ${original.category} exactly.`;
+      case "material":
+        return `Nothing in ${original.material}.`;
+      case "query":
+        return `Nothing matching "${original.query}".`;
+      case "minPrice":
+      case "maxPrice":
+        return "Not at that price.";
+      default:
+        return "";
+    }
+  });
+
+  return sentences.filter(Boolean).join(" ");
+}
+
 function firstNonEmpty(candidates: ProductSearchFilters[]) {
   for (const filters of candidates) {
     const count = searchProducts(filters).length;

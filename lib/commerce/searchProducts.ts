@@ -12,6 +12,23 @@ function matches(value: string | undefined, filter: string | undefined) {
   return !filter || (value !== undefined && normalize(value) === normalize(filter));
 }
 
+/**
+ * Our taxonomy is more specific than the words people use: the categories are
+ * "Canvas sneaker" and "Lace-up sneaker", never plain "sneaker", and the colours
+ * include "Navy Blue" and "Light Pink". An exact match hides those from anyone —
+ * shopper or agent — who asks for a sneaker in blue, so a filter also matches
+ * when either side contains the other.
+ */
+function matchesLoosely(value: string | undefined, filter: string | undefined) {
+  if (!filter) return true;
+  if (value === undefined) return false;
+
+  const actual = normalize(value);
+  const wanted = normalize(filter);
+
+  return actual === wanted || actual.includes(wanted) || wanted.includes(actual);
+}
+
 function isAccessoryCategory(category: string | undefined) {
   return category !== undefined && /^(bag|belt|wallet)$/i.test(category);
 }
@@ -35,15 +52,15 @@ export function searchProducts(filters: ProductSearchFilters = {}) {
       !filters.category ||
       (normalize(filters.category) === "accessories"
         ? isAccessoryCategory(product.category)
-        : matches(product.category, filters.category));
+        : matchesLoosely(product.category, filters.category));
 
     return (
       queryMatches &&
-      matches(product.brand, filters.brand) &&
+      matchesLoosely(product.brand, filters.brand) &&
       matches(product.gender, filters.gender) &&
       categoryMatches &&
-      matches(product.material, filters.material) &&
-      matches(product.color, filters.color) &&
+      matchesLoosely(product.material, filters.material) &&
+      matchesLoosely(product.color, filters.color) &&
       (filters.size === undefined || product.sizes?.includes(filters.size)) &&
       (filters.minPrice === undefined || product.price >= filters.minPrice) &&
       (filters.maxPrice === undefined || product.price <= filters.maxPrice)
