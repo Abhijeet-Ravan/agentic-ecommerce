@@ -15,8 +15,10 @@ export async function POST(request: NextRequest) {
   const stored = getContext(call.sessionId);
 
   if (!stored) {
+    // The page re-pushes within a poll of noticing this, so a retry almost
+    // always succeeds. Asking the shopper to reload is a last resort.
     return fail(
-      "The shopper's browser hasn't reported a page yet. Ask them to reload the store.",
+      "Nothing reported for this session yet — the page is being asked to send it now. Keep talking, wait a moment and call get_page_context again. Only if it fails twice more, ask them to reload the store.",
     );
   }
 
