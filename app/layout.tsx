@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import AgniRoot from "@/components/agni/AgniRoot";
 import Header from "@/components/home/Header";
 import Footer from "@/components/home/Footer";
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <AgniRoot />
         </CartProvider>
       </body>
     </html>

@@ -34,6 +34,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       : "relevance";
   const results = searchProducts({
     query: first(params.q),
+    brand: first(params.brand),
     gender: first(params.gender),
     category: first(params.category),
     material: first(params.material),
@@ -52,6 +53,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     ),
   );
   const filterOptions = {
+    brands: unique(allProducts.map((product) => product.brand)),
     genders: unique(allProducts.map((product) => product.gender)),
     categories: categoryOptions,
     materials: unique(allProducts.map((product) => product.material)),
@@ -62,7 +64,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   };
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-10">
+    <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-10" data-agni-page="products">
       <div className="mb-8">
         <h1 className="text-3xl font-semibold">Products</h1>
         <p className="mt-2 text-sm text-gray-600">

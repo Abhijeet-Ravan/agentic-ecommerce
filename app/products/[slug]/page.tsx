@@ -19,7 +19,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-6 py-10">
+    <main
+      className="mx-auto max-w-7xl px-6 py-10"
+      data-agni-page="product"
+      data-agni-slug={product.slug}
+    >
       <div className="grid gap-12 md:grid-cols-2">
         {/* LEFT SIDE */}
         <ProductGallery images={product.images} productName={product.name} />

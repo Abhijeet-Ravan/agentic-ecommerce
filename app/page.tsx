@@ -23,7 +23,7 @@ const justLanded = getHomepageProducts("just-landed-casuals");
 
 export default function Home() {
   return (
-    <main>
+    <main data-agni-page="home">
       <HeroCarousel />
 
       <CategoryTiles />

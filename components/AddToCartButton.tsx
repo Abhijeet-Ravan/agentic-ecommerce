@@ -12,8 +12,12 @@ export default function AddToCartButton({ productId, sizes }: AddToCartButtonPro
   const { addToCart } = useCart();
   const [selectedSize, setSelectedSize] = useState<number>();
   const [message, setMessage] = useState("");
+  // Counts presses so the Agni bridge can tell a fresh outcome from a stale one.
+  const [attempts, setAttempts] = useState(0);
 
   function handleAddToCart() {
+    setAttempts((count) => count + 1);
+
     if (sizes?.length && selectedSize === undefined) {
       setMessage("Please select a size.");
       return;
@@ -38,6 +42,7 @@ export default function AddToCartButton({ productId, sizes }: AddToCartButtonPro
                   setMessage("");
                 }}
                 aria-pressed={selectedSize === size}
+                data-agni-size={size}
                 className={`flex h-10 min-w-10 items-center justify-center rounded-full border px-3 text-sm ${
                   selectedSize === size
                     ? "border-black bg-black text-white"
@@ -55,6 +60,7 @@ export default function AddToCartButton({ productId, sizes }: AddToCartButtonPro
         <p
           className={`mb-3 text-sm ${message.startsWith("Please") ? "text-red-600" : "text-green-700"}`}
           role="status"
+          data-agni-id="product.message"
         >
           {message}
         </p>
@@ -63,6 +69,8 @@ export default function AddToCartButton({ productId, sizes }: AddToCartButtonPro
       <button
         type="button"
         onClick={handleAddToCart}
+        data-agni-id="product.addToCart"
+        data-agni-attempts={attempts}
         className="w-full bg-black py-4 font-semibold text-white"
       >
         ADD TO CART
