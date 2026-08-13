@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { requireAgniSecret } from "@/lib/agni/auth";
-import { drainActions, enqueueAction, recordResults } from "@/lib/agni/store";
+import { drainActions, enqueueAction, getContext, recordResults } from "@/lib/agni/store";
 import { parseAction, type ActionResult } from "@/lib/agni/types";
 
 function sessionIdOf(payload: Record<string, unknown>) {
@@ -40,7 +40,14 @@ export async function POST(request: NextRequest) {
   return Response.json({ ok: true, action_id: queued.id });
 }
 
-/** The in-page bridge drains its queue. */
+/**
+ * The in-page bridge drains its queue.
+ *
+ * `needContext` tells the page to re-push its context. The store is in memory,
+ * so a server restart wipes every session while the shopper's tab carries on
+ * none the wiser — this is how the tab finds out, within one poll, instead of
+ * the agent having to ask them to reload.
+ */
 export async function GET(request: NextRequest) {
   const sessionId = request.nextUrl.searchParams.get("sid")?.trim();
 
@@ -48,7 +55,10 @@ export async function GET(request: NextRequest) {
     return Response.json({ error: "sid is required." }, { status: 400 });
   }
 
-  return Response.json({ actions: drainActions(sessionId) });
+  return Response.json({
+    actions: drainActions(sessionId),
+    needContext: !getContext(sessionId),
+  });
 }
 
 /** The bridge reports what happened, so the agent can speak about outcomes. */

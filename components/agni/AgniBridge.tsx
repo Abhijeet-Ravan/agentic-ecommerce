@@ -382,7 +382,15 @@ export default function AgniBridge() {
 
         if (!response.ok) return;
 
-        const data: { actions?: QueuedAction[] } = await response.json();
+        const data: { actions?: QueuedAction[]; needContext?: boolean } =
+          await response.json();
+
+        // The server forgot this session (restart, or a fresh instance). Re-push
+        // rather than making the agent ask the shopper to reload.
+        if (data.needContext) {
+          log("server has no context — re-pushing");
+          window.dispatchEvent(new Event("agni:refresh-context"));
+        }
 
         for (const action of data.actions ?? []) {
           if (seenRef.current.has(action.id)) continue;
