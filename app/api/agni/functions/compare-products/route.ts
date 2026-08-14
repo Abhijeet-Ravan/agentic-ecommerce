@@ -1,7 +1,10 @@
 import type { NextRequest } from "next/server";
-import { compareProducts } from "@/lib/commerce/compareProducts";
+import {
+  compareProducts,
+  recommendProduct,
+} from "@/lib/commerce/compareProducts";
 import { getProducts } from "@/lib/commerce/getProduct";
-import { fail, money, ok, openFunctionCall, str } from "@/lib/agni/functionKit";
+import { fail, list, money, openFunctionCall, queue, str } from "@/lib/agni/functionKit";
 import type { Product } from "@/types/product";
 
 function normalize(value: string) {
@@ -48,32 +51,9 @@ function describeUseCases(product: { demoSpecifications: { idealFor?: readonly s
   return product.demoSpecifications.idealFor?.slice(0, 3).join(", ") || "everyday use";
 }
 
-function score(product: {
-  reviews: { averageRating: number };
-  price: { amount: number };
-  demoSpecifications: {
-    comfortScore?: number;
-    durabilityScore?: number;
-    gripScore?: number;
-    organizationScore?: number;
-    portabilityScore?: number;
-  };
-}) {
-  const specs = product.demoSpecifications;
-  const quality =
-    specs.comfortScore ??
-    specs.durabilityScore ??
-    specs.gripScore ??
-    specs.organizationScore ??
-    specs.portabilityScore ??
-    70;
-
-  return product.reviews.averageRating * 18 + quality - product.price.amount / 500;
-}
-
 /**
- * `compare_products` gives the agent a grounded side-by-side view using the
- * product descriptions, demo specs and demo review set shown on product pages.
+ * `compare_products` gives the agent grounded comparison data and queues the
+ * matching visual modal in the shopper's browser.
  */
 export async function POST(request: NextRequest) {
   const call = await openFunctionCall(request);
@@ -116,7 +96,8 @@ export async function POST(request: NextRequest) {
   }
 
   const { a, b } = comparison.products;
-  const winner = score(a) >= score(b) ? a : b;
+  const recommendation = recommendProduct(comparison);
+  const winner = recommendation.winner.slug === a.identity.slug ? a : b;
   const other = winner.identity.slug === a.identity.slug ? b : a;
   const cheaper = comparison.derived.price.cheaperProduct;
   const higherRated = comparison.derived.rating.higherRatedProduct;
@@ -135,24 +116,23 @@ export async function POST(request: NextRequest) {
           1,
         )} stars in the demo reviews.`;
 
-  return ok(
+  return queue(
+    call.sessionId,
+    {
+      type: "show_comparison",
+      slugA: a.identity.slug,
+      slugB: b.identity.slug,
+    },
     `${productLabel(a)} versus ${productLabel(b)}. ${priceSentence} ${ratingSentence} ${sizeSentence} ${a.identity.name} is strongest for ${describeUseCases(
       a,
     )}; ${b.identity.name} is strongest for ${describeUseCases(
       b,
-    )}. Clean take: choose ${winner.identity.name} if you want the stronger overall pick; choose ${other.identity.name} if its style, colour or price fits you better. Mention that the review data is demo feedback.`,
+    )}. Clean take: ${winner.identity.name} is the stronger overall choice because it has ${list(
+      [...recommendation.reasons],
+    )}. It is best suited to ${list([...recommendation.winnerIdealFor])}. Choose ${other.identity.name} when its style, construction or fit better matches your preference. The reviews and performance scores are demo data.`,
     {
       comparison,
-      recommendation: {
-        product: {
-          slug: winner.identity.slug,
-          name: winner.identity.name,
-        },
-        reason:
-          winner.identity.slug === cheaper?.slug
-            ? "Best balance of price, reviews and specifications."
-            : "Best balance of reviews and specifications, despite not being the cheapest.",
-      },
+      recommendation,
     },
   );
 }

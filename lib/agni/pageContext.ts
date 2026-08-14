@@ -144,9 +144,13 @@ function pageSection(report: PageReport) {
     const filters = readFilters(report.search);
     const results = searchProducts(filters);
     const shown = results.slice(0, MAX_LISTED);
+    const comparisonOpen = new URLSearchParams(report.search).has("compare");
 
     return [
       `PAGE: product list — ${url}`,
+      comparisonOpen
+        ? "COMPARISON MODAL: open with the two listed products side by side"
+        : "COMPARISON MODAL: closed",
       `FILTERS: ${describeFilters(filters)}`,
       results.length
         ? `RESULTS: ${results.length} match(es), first ${shown.length} listed:`

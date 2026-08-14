@@ -7,6 +7,7 @@ import type { ProductSearchFilters, ProductSort } from "@/lib/commerce/types";
  */
 export type AgniAction =
   | ({ type: "search_products" } & ProductSearchFilters)
+  | { type: "show_comparison"; slugA: string; slugB: string }
   | { type: "open_product"; slug: string }
   | { type: "select_color"; color: string }
   | { type: "select_size"; size: number }
@@ -50,6 +51,7 @@ export type PageReport = {
 
 const ACTION_TYPES = [
   "search_products",
+  "show_comparison",
   "open_product",
   "select_color",
   "select_size",
@@ -158,6 +160,15 @@ export function parseAction(input: unknown): ParsedAction {
       return slug
         ? { ok: true, action: { type: "open_product", slug } }
         : { ok: false, error: "open_product requires a slug." };
+    }
+
+    case "show_comparison": {
+      const slugA = text(body.slugA ?? body.slug_a);
+      const slugB = text(body.slugB ?? body.slug_b);
+
+      return slugA && slugB
+        ? { ok: true, action: { type: "show_comparison", slugA, slugB } }
+        : { ok: false, error: "show_comparison requires slug_a and slug_b." };
     }
 
     case "select_color": {

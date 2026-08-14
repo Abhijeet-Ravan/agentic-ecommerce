@@ -68,8 +68,13 @@ export function fail(summary: string, data: Record<string, unknown> = {}) {
 }
 
 /** Queues an action for the shopper's browser and reports it in speakable form. */
-export function queue(sessionId: string, action: AgniAction, summary: string) {
-  return queueAll(sessionId, [action], summary);
+export function queue(
+  sessionId: string,
+  action: AgniAction,
+  summary: string,
+  data: Record<string, unknown> = {},
+) {
+  return queueAll(sessionId, [action], summary, data);
 }
 
 /**
@@ -78,10 +83,15 @@ export function queue(sessionId: string, action: AgniAction, summary: string) {
  * tool call would cost the agent another round trip and leave the shopper
  * listening to silence.
  */
-export function queueAll(sessionId: string, actions: AgniAction[], summary: string) {
+export function queueAll(
+  sessionId: string,
+  actions: AgniAction[],
+  summary: string,
+  data: Record<string, unknown> = {},
+) {
   const ids = actions.map((action) => enqueueAction(sessionId, action).id);
 
-  return ok(summary, { action_ids: ids });
+  return ok(summary, { ...data, action_ids: ids });
 }
 
 export function str(args: Record<string, unknown>, ...names: string[]) {
