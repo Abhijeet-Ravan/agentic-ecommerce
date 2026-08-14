@@ -8,6 +8,7 @@ import type { ProductSearchFilters, ProductSort } from "@/lib/commerce/types";
 export type AgniAction =
   | ({ type: "search_products" } & ProductSearchFilters)
   | { type: "show_comparison"; slugA: string; slugB: string }
+  | { type: "close_comparison" }
   | { type: "scroll_view"; direction: "up" | "down" | "top" | "bottom"; amount: "little" | "page" }
   | { type: "open_product"; slug: string }
   | { type: "select_color"; color: string }
@@ -53,6 +54,7 @@ export type PageReport = {
 const ACTION_TYPES = [
   "search_products",
   "show_comparison",
+  "close_comparison",
   "scroll_view",
   "open_product",
   "select_color",
@@ -172,6 +174,9 @@ export function parseAction(input: unknown): ParsedAction {
         ? { ok: true, action: { type: "show_comparison", slugA, slugB } }
         : { ok: false, error: "show_comparison requires slug_a and slug_b." };
     }
+
+    case "close_comparison":
+      return { ok: true, action: { type: "close_comparison" } };
 
     case "scroll_view": {
       const direction = text(body.direction);

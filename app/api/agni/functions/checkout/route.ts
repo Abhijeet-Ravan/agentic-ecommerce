@@ -20,6 +20,6 @@ export async function POST(request: NextRequest) {
   return queue(
     call.sessionId,
     { type: "checkout" },
-    `Taking them to checkout with ${cart.count} item${cart.count === 1 ? "" : "s"}, ${money(cart.subtotal)}. Tell them to complete payment themselves — never say the order is placed.`,
+    `Checkout navigation is queued for ${cart.count} item${cart.count === 1 ? "" : "s"}, ${money(cart.subtotal)}. Call get_page_context next and only say checkout is open when it reports PAGE: checkout. Never say the order is placed.`,
   );
 }

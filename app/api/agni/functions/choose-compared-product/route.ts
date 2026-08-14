@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { fail, openFunctionCall, queue, str } from "@/lib/agni/functionKit";
 import { getPage } from "@/lib/agni/store";
+import { compareProducts, recommendProduct } from "@/lib/commerce/compareProducts";
 import { getProduct } from "@/lib/commerce/getProduct";
 
 function comparisonSlugs(search: string) {
@@ -20,6 +21,12 @@ function choiceIndex(value: string) {
   return null;
 }
 
+function recommendedSlug(slugs: readonly string[]) {
+  const comparison = compareProducts(slugs[0], slugs[1]);
+
+  return comparison.ok ? recommendProduct(comparison).winner.slug : "";
+}
+
 /** Opens the chosen comparison item without adding, removing, or changing cart lines. */
 export async function POST(request: NextRequest) {
   const call = await openFunctionCall(request);
@@ -36,9 +43,14 @@ export async function POST(request: NextRequest) {
   }
 
   const explicitSlug = str(call.args, "slug");
-  const index = choiceIndex(str(call.args, "choice", "position", "selection"));
+  const rawChoice = str(call.args, "choice", "position", "selection");
+  const index = choiceIndex(rawChoice);
   const slug = explicitSlug && slugs.includes(explicitSlug)
     ? explicitSlug
+    : ["better", "best", "recommended", "recommendation"].includes(
+          rawChoice.toLowerCase(),
+        )
+      ? recommendedSlug(slugs)
     : index === null
       ? ""
       : slugs[index];
