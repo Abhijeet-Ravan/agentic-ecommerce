@@ -5,6 +5,7 @@ import PromoBanner from "@/components/home/PromoBanner";
 import CollectionTiles from "@/components/home/CollectionTiles";
 import BlogSection from "@/components/home/BlogSection";
 import SocialGallery from "@/components/home/SocialGallery";
+import FavouritesSection from "@/components/home/FavouritesSection";
 import homepageProducts from "@/data/homepage-products.json";
 import { getProduct } from "@/lib/commerce/getProduct";
 
@@ -50,6 +51,8 @@ export default function Home() {
         products={justLanded}
         viewAllHref="/products?gender=men&q=casual"
       />
+
+      <FavouritesSection />
 
       <BlogSection />
 
