@@ -157,7 +157,10 @@ function actionReflected(action: QueuedAction, page: PageReport) {
     case "search_products":
       return sameRoute(currentRoute, searchRoute(action));
     case "show_comparison":
-      return sameRoute(currentRoute, comparisonRoute(action.slugA, action.slugB));
+      return sameRoute(
+        currentRoute,
+        comparisonRoute(action.slugA, action.slugB, action.returnToCart),
+      );
     case "close_comparison":
       return page.path === "/products" && !new URLSearchParams(page.search).has("compare");
     case "open_product":

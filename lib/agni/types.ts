@@ -7,7 +7,7 @@ import type { ProductSearchFilters, ProductSort } from "@/lib/commerce/types";
  */
 export type AgniAction =
   | ({ type: "search_products" } & ProductSearchFilters)
-  | { type: "show_comparison"; slugA: string; slugB: string }
+  | { type: "show_comparison"; slugA: string; slugB: string; returnToCart?: boolean }
   | { type: "close_comparison" }
   | { type: "scroll_view"; direction: "up" | "down" | "top" | "bottom"; amount: "little" | "page" }
   | { type: "open_product"; slug: string }
@@ -171,7 +171,15 @@ export function parseAction(input: unknown): ParsedAction {
       const slugB = text(body.slugB ?? body.slug_b);
 
       return slugA && slugB
-        ? { ok: true, action: { type: "show_comparison", slugA, slugB } }
+        ? {
+            ok: true,
+            action: defined({
+              type: "show_comparison",
+              slugA,
+              slugB,
+              returnToCart: body.returnToCart === true ? true : undefined,
+            }),
+          }
         : { ok: false, error: "show_comparison requires slug_a and slug_b." };
     }
 

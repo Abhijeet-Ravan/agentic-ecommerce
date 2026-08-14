@@ -595,7 +595,7 @@ with the literal text `{{session_id}}` in it. Section 5.
 | Field | Value |
 |---|---|
 | **Name** | `choose_compared_product` |
-| **Description** | `Use when a comparison is open and the shopper chooses the first/second/left/right product or says to take the better/recommended one. Automatically closes the comparison and opens that product; never ask the shopper to close the modal. It never changes the cart.` |
+| **Description** | `Use when a comparison is open and the shopper chooses the first/second/left/right product or says to take the better/recommended one. Automatically closes the comparison. It returns to the cart when comparison started there; otherwise it opens that product. Never ask the shopper to close the modal. It never changes the cart.` |
 | **Method** | `POST` |
 | **URL** | `{{APP_URL}}/api/agni/functions/choose-compared-product` |
 | **Headers** | `X-Agni-Action-Secret: <AGNI_ACTION_SECRET>` |

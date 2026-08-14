@@ -25,9 +25,11 @@ export function productRoute(slug: string) {
   return `/products/${encodeURIComponent(slug)}`;
 }
 
-export function comparisonRoute(slugA: string, slugB: string) {
+export function comparisonRoute(slugA: string, slugB: string, returnToCart = false) {
   const slugs = [slugA, slugB].join(",");
   const params = new URLSearchParams({ slugs, compare: slugs });
+
+  if (returnToCart) params.set("returnTo", "cart");
 
   return `/products?${params}`;
 }
