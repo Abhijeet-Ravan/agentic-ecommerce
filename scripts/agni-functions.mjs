@@ -152,6 +152,43 @@ export const tools = [
     executionMsg: "Comparing those two.",
   }),
   customTool({
+    name: "choose_compared_product",
+    path: "choose-compared-product",
+    description:
+      "Use when a comparison is open and the shopper says they like, prefer, want or will go with the first/second/left/right product. Opens that product and closes the comparison. It never changes the cart; do not use update_cart for a comparison preference.",
+    properties: {
+      choice: {
+        type: "string",
+        enum: ["first", "second"],
+        description: "Which compared product the shopper chose",
+      },
+      slug: {
+        type: "string",
+        description: "Optional exact compared-product slug when known",
+      },
+    },
+    executionMsg: "Opening your choice.",
+  }),
+  customTool({
+    name: "scroll_view",
+    path: "scroll-view",
+    description:
+      "Scroll what the shopper is viewing. Use when they ask to scroll, move down/up, continue, see more, go to the top, or go to the bottom. Scrolls the comparison modal when open; otherwise scrolls the page.",
+    properties: {
+      direction: {
+        type: "string",
+        enum: ["up", "down", "top", "bottom"],
+        description: "Defaults to down",
+      },
+      amount: {
+        type: "string",
+        enum: ["little", "page"],
+        description: "Use little for 'a bit'; page for a full screen",
+      },
+    },
+    executionMsg: "Scrolling now.",
+  }),
+  customTool({
     name: "choose_color",
     path: "choose-color",
     description:
@@ -188,12 +225,16 @@ export const tools = [
     name: "update_cart",
     path: "update-cart",
     description:
-      "Change what is in the cart. Use keep_only with a slug when the shopper wants just that one item and the rest dropped — that is the usual answer to 'do you want the others too?'. Use remove for a single item, set_quantity to change how many, clear to empty it.",
+      "Change cart contents only when the shopper explicitly says cart, remove, delete, quantity, empty, or clearly answers a cart-specific question. Never use for 'I like/prefer/want the first one' during comparison; use choose_compared_product instead. Use keep_only when they explicitly want one cart item and the rest removed.",
     properties: {
       operation: { type: "string", enum: ["remove", "keep_only", "set_quantity", "clear"] },
       slug: { type: "string", description: "The item's slug, from the page context" },
       size: { type: "number" },
       quantity: { type: "number" },
+      explicit_cart_request: {
+        type: "boolean",
+        description: "Set true only when the shopper explicitly requested a cart change",
+      },
     },
     required: ["operation"],
   }),
