@@ -201,13 +201,37 @@ export default function AgniBridge() {
 
           const viewport = modal ? modal.clientHeight : window.innerHeight;
           const distance = viewport * (action.amount === "page" ? 0.82 : 0.38);
-          const top = action.direction === "top"
+          const before = modal ? modal.scrollTop : window.scrollY;
+          const requestedTop = action.direction === "top"
             ? 0
             : action.direction === "bottom"
               ? target.scrollHeight
-              : target.scrollTop + (action.direction === "up" ? -distance : distance);
+              : before + (action.direction === "up" ? -distance : distance);
+          const top = Math.max(0, Math.min(requestedTop, target.scrollHeight - viewport));
 
-          target.scrollTo({ top, behavior: "smooth" });
+          if (Math.abs(top - before) < 1) {
+            pending.note = `The ${modal ? "comparison" : "page"} is already at the ${
+              action.direction === "up" || action.direction === "top" ? "top" : "bottom"
+            }.`;
+            return "done";
+          }
+
+          if (modal) {
+            modal.scrollTo({ top, behavior: "smooth" });
+          } else {
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+
+          await new Promise((resolve) => window.setTimeout(resolve, 320));
+
+          const after = modal ? modal.scrollTop : window.scrollY;
+
+          // Some browsers ignore smooth scrolling while focus is in the voice UI.
+          if (Math.abs(after - before) < 1) {
+            if (modal) modal.scrollTo({ top, behavior: "auto" });
+            else window.scrollTo({ top, behavior: "auto" });
+          }
+
           pending.note = `Scrolled the ${modal ? "comparison" : "page"} ${action.direction}.`;
 
           return "done";
@@ -467,6 +491,23 @@ export default function AgniBridge() {
                 pending.action.type === "show_comparison"
               ) {
                 pending.cancelled = "Superseded by the shopper's newer comparison request.";
+              }
+            }
+          }
+
+          if (
+            action.type === "close_comparison" ||
+            action.type === "open_product" ||
+            action.type === "open_cart" ||
+            action.type === "checkout" ||
+            action.type === "add_to_cart" ||
+            action.type === "remove_from_cart" ||
+            action.type === "set_quantity" ||
+            action.type === "clear_cart"
+          ) {
+            for (const pending of queueRef.current) {
+              if (pending.action.type === "show_comparison") {
+                pending.cancelled = "Superseded by the shopper's newer selection or cart request.";
               }
             }
           }
