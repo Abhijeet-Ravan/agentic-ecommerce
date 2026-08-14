@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { fail, ok, openFunctionCall } from "@/lib/agni/functionKit";
 import { getActionState, getContext } from "@/lib/agni/store";
 
-const ACTION_SETTLE_TIMEOUT_MS = 2400;
+const ACTION_SETTLE_TIMEOUT_MS = 4200;
 const ACTION_SETTLE_POLL_MS = 120;
 
 function wait(milliseconds: number) {
@@ -52,7 +52,6 @@ export async function POST(request: NextRequest) {
     return fail(
       "The browser is still applying the last action. Do not claim the page changed yet. Keep talking briefly, then call get_page_context again.",
       {
-        context: stored.context,
         updated_at: new Date(stored.contextAt).toISOString(),
         action_pending: true,
       },

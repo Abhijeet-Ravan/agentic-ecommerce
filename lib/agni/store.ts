@@ -1,4 +1,5 @@
 import type { ActionResult, AgniAction, PageReport, QueuedAction } from "@/lib/agni/types";
+import { getProducts } from "@/lib/commerce/getProduct";
 import {
   comparisonRoute,
   productRoute,
@@ -167,7 +168,26 @@ function actionReflected(action: QueuedAction, page: PageReport) {
       return page.path === "/checkout";
     case "navigate_to":
       return sameRoute(currentRoute, action.route);
+    case "remove_from_cart":
+      return !new URLSearchParams(page.search).has("compare") &&
+        !page.cart.some(
+          (item) => item.productId === productId(action.slug) &&
+            (action.size === undefined || item.size === action.size),
+        );
+    case "set_quantity":
+      return !new URLSearchParams(page.search).has("compare") &&
+        page.cart.some(
+          (item) => item.productId === productId(action.slug) &&
+            item.quantity === action.quantity &&
+            (action.size === undefined || item.size === action.size),
+        );
+    case "clear_cart":
+      return !new URLSearchParams(page.search).has("compare") && page.cart.length === 0;
     default:
       return false;
   }
+}
+
+function productId(slug: string) {
+  return getProducts().find((product) => product.slug === slug)?.id;
 }
