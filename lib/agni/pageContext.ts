@@ -37,6 +37,7 @@ function readFilters(search: string) {
     sortValue === "price-asc" || sortValue === "price-desc" ? sortValue : "relevance";
 
   const filters: ProductSearchFilters = {
+    slugs: params.get("slugs")?.split(",").map((slug) => slug.trim()).filter(Boolean),
     query: params.get("q") ?? undefined,
     brand: params.get("brand") ?? undefined,
     gender: params.get("gender") ?? undefined,

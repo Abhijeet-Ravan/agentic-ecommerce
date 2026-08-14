@@ -27,6 +27,7 @@ export default function ProductFilters({ options }: ProductFiltersProps) {
 
   function updateParam(name: string, value: string) {
     const params = new URLSearchParams(searchParams.toString());
+    params.delete("slugs");
 
     if (value) {
       params.set(name, value);
@@ -40,6 +41,7 @@ export default function ProductFilters({ options }: ProductFiltersProps) {
   function submitTextFilters(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const params = new URLSearchParams(searchParams.toString());
+    params.delete("slugs");
 
     for (const [name, value] of [
       ["q", query],

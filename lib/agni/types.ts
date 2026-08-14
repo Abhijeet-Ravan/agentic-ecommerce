@@ -73,6 +73,21 @@ function text(value: unknown) {
   return typeof value === "string" && value.trim() ? value.trim() : undefined;
 }
 
+function textList(value: unknown) {
+  const values = Array.isArray(value)
+    ? value
+    : typeof value === "string"
+      ? value.split(",")
+      : [];
+
+  const cleaned = values.flatMap((entry) => {
+    const value = text(entry);
+    return value ? [value] : [];
+  });
+
+  return cleaned.length ? cleaned : undefined;
+}
+
 /** Voice agents routinely send numbers as strings ("size": "8"). */
 function number(value: unknown) {
   if (typeof value === "number") return Number.isFinite(value) ? value : undefined;
@@ -124,6 +139,7 @@ export function parseAction(input: unknown): ParsedAction {
         ok: true,
         action: defined({
           type: "search_products",
+          slugs: textList(body.slugs),
           query: text(body.query ?? body.q),
           brand: text(body.brand),
           gender: text(body.gender),

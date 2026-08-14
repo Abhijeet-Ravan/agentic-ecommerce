@@ -46,6 +46,10 @@ export function searchRoute(filters: ProductSearchFilters) {
     }
   }
 
+  if (filters.slugs?.length) {
+    params.set("slugs", filters.slugs.join(","));
+  }
+
   return `/products${params.size ? `?${params}` : ""}`;
 }
 

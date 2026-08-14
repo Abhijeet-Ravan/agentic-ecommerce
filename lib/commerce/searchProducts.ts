@@ -36,6 +36,10 @@ function isAccessoryCategory(category: string | undefined) {
 export function searchProducts(filters: ProductSearchFilters = {}) {
   const query = filters.query ? normalize(filters.query) : undefined;
   const sort: ProductSort = filters.sort ?? "relevance";
+  const selectedSlugs = filters.slugs?.map(normalize).filter(Boolean);
+  const selectedSlugSet = selectedSlugs?.length
+    ? new Set(selectedSlugs)
+    : undefined;
 
   const results = getProducts().filter((product) => {
     const textFields = [
@@ -55,6 +59,7 @@ export function searchProducts(filters: ProductSearchFilters = {}) {
         : matchesLoosely(product.category, filters.category));
 
     return (
+      (!selectedSlugSet || selectedSlugSet.has(normalize(product.slug))) &&
       queryMatches &&
       matchesLoosely(product.brand, filters.brand) &&
       matches(product.gender, filters.gender) &&
@@ -73,6 +78,12 @@ export function searchProducts(filters: ProductSearchFilters = {}) {
 
   if (sort === "price-desc") {
     return results.toSorted((a, b) => b.price - a.price);
+  }
+
+  if (selectedSlugs?.length) {
+    return results.toSorted(
+      (a, b) => selectedSlugs.indexOf(normalize(a.slug)) - selectedSlugs.indexOf(normalize(b.slug)),
+    );
   }
 
   return results;

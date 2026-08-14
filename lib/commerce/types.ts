@@ -1,6 +1,7 @@
 export type ProductSort = "relevance" | "price-asc" | "price-desc";
 
 export type ProductSearchFilters = {
+  slugs?: readonly string[];
   query?: string;
   brand?: string;
   gender?: string;
