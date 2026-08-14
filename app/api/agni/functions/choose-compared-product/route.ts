@@ -35,6 +35,9 @@ export async function POST(request: NextRequest) {
 
   const page = getPage(call.sessionId);
   const slugs = page?.path === "/products" ? comparisonSlugs(page.search) : undefined;
+  const returnToCart = page
+    ? new URLSearchParams(page.search).get("returnTo") === "cart"
+    : false;
 
   if (slugs?.length !== 2) {
     return fail(
@@ -62,6 +65,14 @@ export async function POST(request: NextRequest) {
   const product = getProduct(slug);
 
   if (!product) return fail("That compared product is no longer in the catalogue.");
+
+  if (returnToCart) {
+    return queue(
+      call.sessionId,
+      { type: "open_cart" },
+      `Selecting ${product.name}, closing the comparison and returning to the cart. The cart is unchanged.`,
+    );
+  }
 
   return queue(
     call.sessionId,

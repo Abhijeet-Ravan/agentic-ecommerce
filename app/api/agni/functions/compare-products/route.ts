@@ -5,6 +5,7 @@ import {
 } from "@/lib/commerce/compareProducts";
 import { getProducts } from "@/lib/commerce/getProduct";
 import { fail, list, money, openFunctionCall, queue, str } from "@/lib/agni/functionKit";
+import { getPage } from "@/lib/agni/store";
 import type { Product } from "@/types/product";
 
 function normalize(value: string) {
@@ -96,6 +97,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { a, b } = comparison.products;
+  const returnToCart = getPage(call.sessionId)?.path === "/cart";
   const recommendation = recommendProduct(comparison);
   const winner = recommendation.winner.slug === a.identity.slug ? a : b;
   const other = winner.identity.slug === a.identity.slug ? b : a;
@@ -122,6 +124,7 @@ export async function POST(request: NextRequest) {
       type: "show_comparison",
       slugA: a.identity.slug,
       slugB: b.identity.slug,
+      ...(returnToCart ? { returnToCart: true } : {}),
     },
     `${productLabel(a)} versus ${productLabel(b)}. ${priceSentence} ${ratingSentence} ${sizeSentence} ${a.identity.name} is strongest for ${describeUseCases(
       a,

@@ -14,7 +14,7 @@ and clicks checkout. Payment is the shopper's.
 | "show me both" | `show_products {slug_a, slug_b}` → exactly those two product cards load |
 | "the canvas one" | `search_catalog` → `open_product {slug}` → product page |
 | "compare these two" | `compare_products {slug_a, slug_b}` → visual modal plus grounded perspective |
-| "I like the first one" | `choose_compared_product {choice: "first"}` → closes modal and opens it; cart unchanged |
+| "I like the first one" | `choose_compared_product {choice: "first"}` → closes modal; returns to cart when comparison started there, otherwise opens it; cart unchanged |
 | "scroll down a bit" | `scroll_view {direction: "down", amount: "little"}` → scrolls modal or page |
 | — | asks colour (context lists the other colourways of that style) |
 | "in blue" | `choose_color {color}` → exact colourway if it exists, otherwise a filtered listing |
@@ -187,8 +187,9 @@ curl -sS -X POST "$AGNI_BASE/agents" \
 > While comparison is open, "I like the first one", "I prefer the second", "I'll
 > go with the left one", "take the better one" and similar preference statements
 > mean call `choose_compared_product`. This automatically closes the modal and
-> opens that product. Never ask the shopper to close it separately. It does not
-> change the cart. Never call `update_cart` for a product preference.
+> returns to the cart when the comparison started there; otherwise it opens that
+> product. Never ask the shopper to close it separately. It does not change the
+> cart. Never call `update_cart` for a product preference.
 >
 > If they ask to close, dismiss or hide the comparison, or say it is still open,
 > call `close_comparison`. Never claim it closed without that tool call.

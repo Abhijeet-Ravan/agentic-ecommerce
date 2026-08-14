@@ -147,7 +147,12 @@ export default function AgniBridge() {
 
       if (!params.has("compare")) return "done";
 
+      if (params.get("returnTo") === "cart") {
+        return goTo(pending, "/cart", "cart");
+      }
+
       params.delete("compare");
+      params.delete("returnTo");
       const route = `${window.location.pathname}${params.size ? `?${params}` : ""}`;
 
       return goTo(pending, route, pageMarker() ?? undefined);
@@ -181,7 +186,7 @@ export default function AgniBridge() {
         case "show_comparison":
           return goTo(
             pending,
-            comparisonRoute(action.slugA, action.slugB),
+            comparisonRoute(action.slugA, action.slugB, action.returnToCart),
             "products",
           );
 

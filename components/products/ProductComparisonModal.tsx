@@ -174,7 +174,14 @@ export default function ProductComparisonModal({
 
   function close() {
     const params = new URLSearchParams(searchParams.toString());
+
+    if (params.get("returnTo") === "cart") {
+      router.replace("/cart", { scroll: false });
+      return;
+    }
+
     params.delete("compare");
+    params.delete("returnTo");
     router.replace(`/products${params.size ? `?${params}` : ""}`, { scroll: false });
   }
 
