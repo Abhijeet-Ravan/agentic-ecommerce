@@ -1,3 +1,18 @@
+export type DemoSpecifications = {
+  source: "synthetic_demo";
+  upperMaterial?: string;
+  soleMaterial?: string;
+  bodyMaterial?: string;
+  closure?: string;
+  fit?: string;
+  cushioning?: string;
+  weight?: string;
+  waterResistance?: string;
+  heelHeight?: string;
+  idealFor?: readonly string[];
+  features?: readonly string[];
+};
+
 export type Product = {
   id: number;
   slug: string;
@@ -12,4 +27,5 @@ export type Product = {
   sizes?: number[];
   productCode?: string;
   description?: string;
+  demoSpecifications: DemoSpecifications;
 };

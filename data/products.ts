@@ -1,7 +1,10 @@
 import type { Product } from "@/types/product";
 import { productAssets } from "@/data/product-assets";
+import { createDemoSpecifications } from "@/lib/commerce/demoSpecifications";
 
-export const products: Product[] = [
+type ProductRecord = Omit<Product, "demoSpecifications">;
+
+const productRecords: ProductRecord[] = [
   {
     "id": 1,
     "slug": "bata-driver-rubber-loafer",
@@ -1449,3 +1452,8 @@ export const products: Product[] = [
     "images": productAssets["bata-men-bamboo-socks-mens-socks"]
   }
 ];
+
+export const products: Product[] = productRecords.map((product) => ({
+  ...product,
+  demoSpecifications: createDemoSpecifications(product),
+}));
