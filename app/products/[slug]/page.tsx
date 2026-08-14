@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ProductGallery from "@/components/ProductGallery";
 import AddToCartButton from "@/components/AddToCartButton";
+import ProductSpecifications from "@/components/ProductSpecifications";
 import StarRating from "@/components/StarRating";
 import { getProduct, getProducts } from "@/lib/commerce/getProduct";
 import {
@@ -96,6 +97,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
       </div>
+
+      <ProductSpecifications product={product} />
 
       <section
         className="mt-16 border-t border-gray-200 pt-10"
