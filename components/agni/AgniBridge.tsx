@@ -25,6 +25,7 @@ type ColorResolution = {
 
 type Pending = {
   action: QueuedAction;
+  cancelled?: string;
   attempts: number;
   step: number;
   pushes: number;
@@ -402,6 +403,12 @@ export default function AgniBridge() {
 
       if (!pending) return;
 
+      if (pending.cancelled) {
+        queueRef.current.shift();
+        finish(pending, "failed", pending.cancelled);
+        return;
+      }
+
       runningRef.current = true;
 
       try {
@@ -452,6 +459,18 @@ export default function AgniBridge() {
           if (seenRef.current.has(action.id)) continue;
 
           seenRef.current.add(action.id);
+
+          if (action.type === "show_comparison") {
+            for (const pending of queueRef.current) {
+              if (
+                pending.action.type === "search_products" ||
+                pending.action.type === "show_comparison"
+              ) {
+                pending.cancelled = "Superseded by the shopper's newer comparison request.";
+              }
+            }
+          }
+
           queueRef.current.push({ action, attempts: 0, step: 0, pushes: 0 });
           log("queued", action);
         }
