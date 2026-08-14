@@ -29,8 +29,12 @@ export default function CategoryTiles() {
     <section className="mx-auto max-w-7xl px-6 py-12">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {categories.map((category) => (
-          <Link key={category.name} href={category.href} className="group block">
-            <div className="relative aspect-[4/5] overflow-hidden">
+          <Link
+            key={category.name}
+            href={category.href}
+            className="group block"
+          >
+            <div className="relative aspect-[16/9] overflow-hidden">
               <Image
                 src={category.image}
                 alt={category.name}

@@ -3,7 +3,9 @@ import ProductGallery from "@/components/ProductGallery";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductSpecifications from "@/components/ProductSpecifications";
 import StarRating from "@/components/StarRating";
+import ProductSection from "@/components/home/ProductSection";
 import { getProduct, getProducts } from "@/lib/commerce/getProduct";
+import { recommendProductsForProduct } from "@/lib/commerce/recommendProducts";
 import {
   getAverageRating,
   getProductReviews,
@@ -25,6 +27,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
+  const recommendations = recommendProductsForProduct(product);
   const reviews = getProductReviews(product);
   const averageRating = getAverageRating(reviews);
   const reviewCount = getReviewCount(reviews);
@@ -163,6 +166,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
           ))}
         </div>
       </section>
+
+      <ProductSection
+        title="You May Also Like"
+        eyebrow="Recommended for you"
+        products={recommendations}
+      />
     </main>
   );
 }
