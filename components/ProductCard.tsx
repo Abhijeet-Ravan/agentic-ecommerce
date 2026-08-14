@@ -1,5 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import StarRating from "@/components/StarRating";
+import {
+  getAverageRating,
+  getProductReviews,
+  getReviewCount,
+} from "@/lib/reviews";
 import type { Product } from "@/types/product";
 
 type ProductCardProps = {
@@ -10,6 +16,9 @@ export default function ProductCard({ product }: ProductCardProps) {
   const sizes = product.sizes ?? [];
   const visibleSizes = sizes.slice(0, 4);
   const remainingSizes = Math.max(0, sizes.length - visibleSizes.length);
+  const reviews = getProductReviews(product);
+  const averageRating = getAverageRating(reviews);
+  const reviewCount = getReviewCount(reviews);
 
   return (
     <div className="group relative w-full">
@@ -60,6 +69,16 @@ export default function ProductCard({ product }: ProductCardProps) {
           <h2 className="mt-2 min-h-9 text-[10px] font-normal leading-[1.4] text-gray-700">
             {product.name}
           </h2>
+
+          <div className="mt-1 flex items-center justify-center gap-1.5 text-[10px] text-gray-600">
+            <StarRating
+              rating={averageRating}
+              className="text-[9px]"
+            />
+            <span>
+              {averageRating.toFixed(1)} ({reviewCount})
+            </span>
+          </div>
 
           <p className="mt-1 pb-4 text-[12px] font-semibold text-black">
             Tk {product.price.toLocaleString()}.00
