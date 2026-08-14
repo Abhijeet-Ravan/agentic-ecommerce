@@ -155,11 +155,11 @@ export const tools = [
     name: "choose_compared_product",
     path: "choose-compared-product",
     description:
-      "Use when a comparison is open and the shopper says they like, prefer, want or will go with the first/second/left/right product. Opens that product and closes the comparison. It never changes the cart; do not use update_cart for a comparison preference.",
+      "Use when a comparison is open and the shopper chooses the first/second/left/right product or says to take the better/recommended one. Automatically closes the comparison and opens that product; never ask the shopper to close the modal. It never changes the cart.",
     properties: {
       choice: {
         type: "string",
-        enum: ["first", "second"],
+        enum: ["first", "second", "recommended"],
         description: "Which compared product the shopper chose",
       },
       slug: {
@@ -170,10 +170,17 @@ export const tools = [
     executionMsg: "Opening your choice.",
   }),
   customTool({
+    name: "close_comparison",
+    path: "close-comparison",
+    description:
+      "Close the comparison modal without selecting a product or changing the cart. Use when the shopper asks to close, dismiss or hide the comparison, or says the modal is still open.",
+    executionMsg: "Closing the comparison.",
+  }),
+  customTool({
     name: "scroll_view",
     path: "scroll-view",
     description:
-      "Scroll what the shopper is viewing. Use when they ask to scroll, move down/up, continue, see more, go to the top, or go to the bottom. Scrolls the comparison modal when open; otherwise scrolls the page.",
+      "Scroll what the shopper is viewing. Use when they ask to scroll, move down/up, continue, see more, go to the top, or go to the bottom. Scrolls the comparison modal when open; otherwise scrolls the page. After success, do not reload or call compare_products again unless they request a new comparison.",
     properties: {
       direction: {
         type: "string",
@@ -242,7 +249,7 @@ export const tools = [
     name: "checkout",
     path: "checkout",
     description:
-      "Click Proceed to Checkout. Use only when the shopper says they want to buy. After this, tell them to complete delivery and payment themselves — never say the order is placed.",
+      "Click Proceed to Checkout only when the shopper says they want to buy. Then call get_page_context and only claim checkout opened when it reports PAGE: checkout. Never say the order is placed.",
     executionMsg: "Taking you to checkout.",
   }),
 ];

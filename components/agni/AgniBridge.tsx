@@ -141,6 +141,17 @@ export default function AgniBridge() {
       return "done";
     }
 
+    function closeComparison(pending: Pending): Attempt {
+      const params = new URLSearchParams(window.location.search);
+
+      if (!params.has("compare")) return "done";
+
+      params.delete("compare");
+      const route = `${window.location.pathname}${params.size ? `?${params}` : ""}`;
+
+      return goTo(pending, route, pageMarker() ?? undefined);
+    }
+
     async function resolveProductId(slug: string) {
       const response = await fetch(`/api/agni/catalog?slug=${encodeURIComponent(slug)}`);
 
@@ -172,6 +183,14 @@ export default function AgniBridge() {
             comparisonRoute(action.slugA, action.slugB),
             "products",
           );
+
+        case "close_comparison": {
+          const closed = closeComparison(pending);
+
+          if (closed === "done") pending.note = "Comparison closed.";
+
+          return closed;
+        }
 
         case "scroll_view": {
           const modal = element("[data-agni-comparison-scroll]");
@@ -325,6 +344,10 @@ export default function AgniBridge() {
 
         case "remove_from_cart":
         case "set_quantity": {
+          const comparisonClosed = closeComparison(pending);
+
+          if (comparisonClosed !== "done") return comparisonClosed;
+
           if (pending.resolvedProductId === undefined) {
             const id = await resolveProductId(action.slug);
 
@@ -346,9 +369,14 @@ export default function AgniBridge() {
           return "done";
         }
 
-        case "clear_cart":
+        case "clear_cart": {
+          const comparisonClosed = closeComparison(pending);
+
+          if (comparisonClosed !== "done") return comparisonClosed;
+
           latest.current.cart.clearCart();
           return "done";
+        }
 
         case "highlight_element": {
           const target = element(`[data-agni-id="${CSS.escape(action.agniId)}"]`);

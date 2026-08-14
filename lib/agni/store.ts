@@ -6,6 +6,8 @@ type Session = {
   page?: PageReport;
   queue: QueuedAction[];
   results: ActionResult[];
+  lastActionId?: string;
+  lastActionQueuedAt?: number;
   updatedAt: number;
 };
 
@@ -94,6 +96,8 @@ export function enqueueAction(sessionId: string, action: AgniAction) {
   };
 
   current.queue.push(queued);
+  current.lastActionId = queued.id;
+  current.lastActionQueuedAt = queued.queuedAt;
 
   if (current.queue.length > MAX_QUEUE) {
     current.queue.splice(0, current.queue.length - MAX_QUEUE);
@@ -118,4 +122,18 @@ export function recordResults(sessionId: string, results: ActionResult[]) {
 
 export function getResults(sessionId: string) {
   return store.get(sessionId)?.results ?? [];
+}
+
+export function getActionState(sessionId: string) {
+  const current = store.get(sessionId);
+
+  if (!current?.lastActionId) return { pending: false, resultAt: undefined };
+
+  const result = current.results.find(({ id }) => id === current.lastActionId);
+
+  return {
+    pending: !result,
+    resultAt: result?.at,
+    queuedAt: current.lastActionQueuedAt,
+  };
 }

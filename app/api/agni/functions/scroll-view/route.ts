@@ -26,6 +26,6 @@ export async function POST(request: NextRequest) {
   return queue(
     call.sessionId,
     { type: "scroll_view", direction: scrollDirection, amount },
-    `Scrolling ${scrollDirection}${amount === "little" ? " a little" : ""}.`,
+    `Scrolling ${scrollDirection}${amount === "little" ? " a little" : ""}. The current comparison or page stays open; do not reload or reopen it.`,
   );
 }
