@@ -1,4 +1,10 @@
 import type { ActionResult, AgniAction, PageReport, QueuedAction } from "@/lib/agni/types";
+import {
+  comparisonRoute,
+  productRoute,
+  sameRoute,
+  searchRoute,
+} from "@/lib/agni/routes";
 
 type Session = {
   context: string;
@@ -6,6 +12,7 @@ type Session = {
   page?: PageReport;
   queue: QueuedAction[];
   results: ActionResult[];
+  lastAction?: QueuedAction;
   lastActionId?: string;
   lastActionQueuedAt?: number;
   updatedAt: number;
@@ -96,6 +103,7 @@ export function enqueueAction(sessionId: string, action: AgniAction) {
   };
 
   current.queue.push(queued);
+  current.lastAction = queued;
   current.lastActionId = queued.id;
   current.lastActionQueuedAt = queued.queuedAt;
 
@@ -130,10 +138,36 @@ export function getActionState(sessionId: string) {
   if (!current?.lastActionId) return { pending: false, resultAt: undefined };
 
   const result = current.results.find(({ id }) => id === current.lastActionId);
+  const reflected = current.page && current.lastAction
+    ? actionReflected(current.lastAction, current.page)
+    : false;
 
   return {
-    pending: !result,
-    resultAt: result?.at,
+    pending: !result && !reflected,
+    resultAt: result?.at ?? (reflected ? current.contextAt : undefined),
     queuedAt: current.lastActionQueuedAt,
   };
+}
+
+function actionReflected(action: QueuedAction, page: PageReport) {
+  const currentRoute = `${page.path}${page.search}`;
+
+  switch (action.type) {
+    case "search_products":
+      return sameRoute(currentRoute, searchRoute(action));
+    case "show_comparison":
+      return sameRoute(currentRoute, comparisonRoute(action.slugA, action.slugB));
+    case "close_comparison":
+      return page.path === "/products" && !new URLSearchParams(page.search).has("compare");
+    case "open_product":
+      return sameRoute(currentRoute, productRoute(action.slug));
+    case "open_cart":
+      return page.path === "/cart";
+    case "checkout":
+      return page.path === "/checkout";
+    case "navigate_to":
+      return sameRoute(currentRoute, action.route);
+    default:
+      return false;
+  }
 }
