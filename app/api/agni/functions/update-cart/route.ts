@@ -11,6 +11,7 @@ import {
   str,
 } from "@/lib/agni/functionKit";
 import type { AgniAction } from "@/lib/agni/types";
+import { getPage } from "@/lib/agni/store";
 
 /**
  * `update_cart` — remove a line, keep only one, change a quantity, or empty the
@@ -26,6 +27,17 @@ export async function POST(request: NextRequest) {
   const slug = str(call.args, "slug");
   const size = num(call.args, "size");
   const cart = cartState(call.sessionId);
+  const page = getPage(call.sessionId);
+  const comparisonOpen = page?.path === "/products" &&
+    new URLSearchParams(page.search).has("compare");
+  const explicitCartRequest = call.args.explicit_cart_request === true ||
+    str(call.args, "explicit_cart_request").toLowerCase() === "true";
+
+  if (comparisonOpen && !explicitCartRequest) {
+    return fail(
+      "The cart was not changed. A preference such as 'I like the first one' means choose that compared product, not remove another cart item. Use choose_compared_product. Only retry update_cart when the shopper explicitly said cart, remove, delete, quantity, or empty.",
+    );
+  }
 
   if (operation === "clear") {
     return queue(

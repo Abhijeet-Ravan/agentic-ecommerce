@@ -8,6 +8,7 @@ import type { ProductSearchFilters, ProductSort } from "@/lib/commerce/types";
 export type AgniAction =
   | ({ type: "search_products" } & ProductSearchFilters)
   | { type: "show_comparison"; slugA: string; slugB: string }
+  | { type: "scroll_view"; direction: "up" | "down" | "top" | "bottom"; amount: "little" | "page" }
   | { type: "open_product"; slug: string }
   | { type: "select_color"; color: string }
   | { type: "select_size"; size: number }
@@ -52,6 +53,7 @@ export type PageReport = {
 const ACTION_TYPES = [
   "search_products",
   "show_comparison",
+  "scroll_view",
   "open_product",
   "select_color",
   "select_size",
@@ -169,6 +171,24 @@ export function parseAction(input: unknown): ParsedAction {
       return slugA && slugB
         ? { ok: true, action: { type: "show_comparison", slugA, slugB } }
         : { ok: false, error: "show_comparison requires slug_a and slug_b." };
+    }
+
+    case "scroll_view": {
+      const direction = text(body.direction);
+      const amount = text(body.amount);
+
+      if (!direction || !["up", "down", "top", "bottom"].includes(direction)) {
+        return { ok: false, error: "scroll_view requires up, down, top, or bottom." };
+      }
+
+      return {
+        ok: true,
+        action: {
+          type: "scroll_view",
+          direction: direction as "up" | "down" | "top" | "bottom",
+          amount: amount === "page" ? "page" : "little",
+        },
+      };
     }
 
     case "select_color": {

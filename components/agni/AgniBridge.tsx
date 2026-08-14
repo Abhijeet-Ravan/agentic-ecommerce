@@ -173,6 +173,26 @@ export default function AgniBridge() {
             "products",
           );
 
+        case "scroll_view": {
+          const modal = element("[data-agni-comparison-scroll]");
+          const target = modal ?? document.scrollingElement;
+
+          if (!target) return { failed: "There is nothing available to scroll." };
+
+          const viewport = modal ? modal.clientHeight : window.innerHeight;
+          const distance = viewport * (action.amount === "page" ? 0.82 : 0.38);
+          const top = action.direction === "top"
+            ? 0
+            : action.direction === "bottom"
+              ? target.scrollHeight
+              : target.scrollTop + (action.direction === "up" ? -distance : distance);
+
+          target.scrollTo({ top, behavior: "smooth" });
+          pending.note = `Scrolled the ${modal ? "comparison" : "page"} ${action.direction}.`;
+
+          return "done";
+        }
+
         case "open_product":
           return goTo(pending, productRoute(action.slug), "product", action.slug);
 

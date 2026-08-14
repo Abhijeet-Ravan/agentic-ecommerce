@@ -205,6 +205,7 @@ export default function ProductComparisonModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="comparison-title"
+        data-agni-comparison-scroll
         className="max-h-[calc(100dvh-1rem)] w-full max-w-5xl overflow-y-auto bg-white shadow-2xl sm:max-h-[calc(100dvh-3rem)]"
       >
         <header className="sticky top-0 z-10 flex min-h-14 items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6">
