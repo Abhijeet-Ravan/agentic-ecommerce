@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { agniConfig } from "@/components/agni/config";
 import { useCart } from "@/context/CartContext";
 import {
+  comparisonRoute,
   productRoute,
   safeInternalRoute,
   sameRoute,
@@ -164,6 +165,13 @@ export default function AgniBridge() {
 
         case "search_products":
           return goTo(pending, searchRoute(action), "products");
+
+        case "show_comparison":
+          return goTo(
+            pending,
+            comparisonRoute(action.slugA, action.slugB),
+            "products",
+          );
 
         case "open_product":
           return goTo(pending, productRoute(action.slug), "product", action.slug);

@@ -25,6 +25,13 @@ export function productRoute(slug: string) {
   return `/products/${encodeURIComponent(slug)}`;
 }
 
+export function comparisonRoute(slugA: string, slugB: string) {
+  const slugs = [slugA, slugB].join(",");
+  const params = new URLSearchParams({ slugs, compare: slugs });
+
+  return `/products?${params}`;
+}
+
 export function searchRoute(filters: ProductSearchFilters) {
   const params = new URLSearchParams();
   const entries: Array<[string, string | number | undefined]> = [

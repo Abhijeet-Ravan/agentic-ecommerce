@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import ProductCard from "@/components/ProductCard";
 import ProductFilters from "@/components/ProductFilters";
+import ProductComparisonModal from "@/components/products/ProductComparisonModal";
+import { compareProducts } from "@/lib/commerce/compareProducts";
 import { getProducts } from "@/lib/commerce/getProduct";
 import { searchProducts } from "@/lib/commerce/searchProducts";
 import type { ProductSort } from "@/lib/commerce/types";
@@ -31,6 +33,10 @@ function unique(values: Array<string | undefined>) {
 
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const params = await searchParams;
+  const comparisonSlugs = slugList(first(params.compare));
+  const comparison = comparisonSlugs?.length === 2
+    ? compareProducts(comparisonSlugs[0], comparisonSlugs[1])
+    : null;
   const sortValue = first(params.sort);
   const sort: ProductSort =
     sortValue === "price-asc" || sortValue === "price-desc"
@@ -97,6 +103,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
           </div>
         )}
       </div>
+
+      {comparison?.ok && <ProductComparisonModal comparison={comparison} />}
     </main>
   );
 }

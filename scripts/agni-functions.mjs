@@ -136,7 +136,7 @@ export const tools = [
     name: "compare_products",
     path: "compare-products",
     description:
-      "Read and compare two catalogue products using descriptions, specs, sizes, prices and demo reviews. Use only when the shopper explicitly asks to compare, asks which is better, or asks for differences. This does not change the screen. Do not use for 'show me both' or other show/see requests.",
+      "Compare two catalogue products using descriptions, specs, sizes, prices and demo reviews, and open a visual side-by-side comparison. Use only when the shopper explicitly asks to compare, asks which is better, or asks for differences. Do not use for 'show me both' or other show/see requests.",
     properties: {
       slug_a: { type: "string", description: "Exact slug for the first product" },
       slug_b: { type: "string", description: "Exact slug for the second product" },

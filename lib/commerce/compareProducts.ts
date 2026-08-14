@@ -68,6 +68,14 @@ export type ProductComparison = {
   };
 };
 
+export type ProductRecommendation = {
+  winner: ComparisonProductReference;
+  alternative: ComparisonProductReference;
+  reasons: readonly string[];
+  winnerIdealFor: readonly string[];
+  alternativeIdealFor: readonly string[];
+};
+
 export type ProductComparisonError = {
   ok: false;
   error: {
@@ -154,6 +162,75 @@ function getHigherRatedProduct(
 
 function uniqueSortedSizes(sizes?: readonly number[]) {
   return [...new Set(sizes ?? [])].sort((first, second) => first - second);
+}
+
+const SCORE_FIELDS = [
+  ["comfortScore", "comfort"],
+  ["durabilityScore", "durability"],
+  ["gripScore", "grip"],
+  ["breathabilityScore", "breathability"],
+  ["flexibilityScore", "flexibility"],
+  ["stabilityScore", "stability"],
+  ["organizationScore", "organization"],
+  ["portabilityScore", "portability"],
+] as const satisfies readonly (readonly [keyof DemoSpecifications, string])[];
+
+function qualityAverage(product: ComparisonProduct) {
+  const scores = SCORE_FIELDS.flatMap(([field]) => {
+    const value = product.demoSpecifications[field];
+    return typeof value === "number" ? [value] : [];
+  });
+
+  return scores.length
+    ? scores.reduce((total, value) => total + value, 0) / scores.length
+    : 5;
+}
+
+function recommendationScore(product: ComparisonProduct, lowerPrice: number) {
+  const valueBonus = lowerPrice > 0
+    ? Math.min(8, (lowerPrice / product.price.amount) * 8)
+    : 0;
+
+  return qualityAverage(product) * 6 + product.reviews.averageRating * 8 + valueBonus;
+}
+
+export function recommendProduct(comparison: ProductComparison): ProductRecommendation {
+  const { a, b } = comparison.products;
+  const lowerPrice = Math.min(a.price.amount, b.price.amount);
+  const winner = recommendationScore(a, lowerPrice) >= recommendationScore(b, lowerPrice)
+    ? a
+    : b;
+  const alternative = winner.identity.slug === a.identity.slug ? b : a;
+  const reasons = SCORE_FIELDS.flatMap(([field, label]) => {
+    const winnerValue = winner.demoSpecifications[field];
+    const alternativeValue = alternative.demoSpecifications[field];
+
+    return typeof winnerValue === "number" &&
+      typeof alternativeValue === "number" &&
+      winnerValue > alternativeValue
+      ? [`better ${label} (${winnerValue}/10 vs ${alternativeValue}/10)`]
+      : [];
+  });
+
+  if (winner.reviews.averageRating > alternative.reviews.averageRating) {
+    reasons.push(
+      `higher demo rating (${winner.reviews.averageRating.toFixed(1)} vs ${alternative.reviews.averageRating.toFixed(1)})`,
+    );
+  }
+
+  if (winner.price.amount < alternative.price.amount) {
+    reasons.push(`lower price by ${alternative.price.amount - winner.price.amount} taka`);
+  }
+
+  return {
+    winner: winner.identity,
+    alternative: alternative.identity,
+    reasons: reasons.slice(0, 3).length
+      ? reasons.slice(0, 3)
+      : ["the strongest overall balance of specifications, rating and price"],
+    winnerIdealFor: winner.demoSpecifications.idealFor ?? ["Everyday use"],
+    alternativeIdealFor: alternative.demoSpecifications.idealFor ?? ["Everyday use"],
+  };
 }
 
 export function compareProducts(
