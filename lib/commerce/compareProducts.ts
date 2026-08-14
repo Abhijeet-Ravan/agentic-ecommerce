@@ -33,6 +33,11 @@ export type ComparisonProduct = {
   reviews: {
     averageRating: number;
     reviewCount: number;
+    ratingBreakdown: Record<3 | 4 | 5, number>;
+    sample: readonly {
+      rating: 3 | 4 | 5;
+      text: string;
+    }[];
     source: "synthetic_demo";
   };
   demoSpecifications: DemoSpecifications;
@@ -84,6 +89,11 @@ function toReference(product: Product): ComparisonProductReference {
 
 function toComparisonProduct(product: Product): ComparisonProduct {
   const reviews = getProductReviews(product);
+  const ratingBreakdown = {
+    3: reviews.filter((review) => review.rating === 3).length,
+    4: reviews.filter((review) => review.rating === 4).length,
+    5: reviews.filter((review) => review.rating === 5).length,
+  };
 
   return {
     identity: {
@@ -107,6 +117,11 @@ function toComparisonProduct(product: Product): ComparisonProduct {
     reviews: {
       averageRating: getAverageRating(reviews),
       reviewCount: getReviewCount(reviews),
+      ratingBreakdown,
+      sample: reviews.slice(0, 3).map((review) => ({
+        rating: review.rating,
+        text: review.text,
+      })),
       source: "synthetic_demo",
     },
     demoSpecifications: product.demoSpecifications,

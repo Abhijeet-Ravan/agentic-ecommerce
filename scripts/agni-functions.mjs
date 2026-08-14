@@ -129,6 +129,25 @@ export const tools = [
     executionMsg: "Opening that one now.",
   }),
   customTool({
+    name: "compare_products",
+    path: "compare-products",
+    description:
+      "Compare two real catalogue products side by side using their descriptions, specs, sizes, prices and demo reviews. Use when the shopper asks which of two choices is better, asks to compare them, or seems stuck between two products. Prefer exact slugs from search_catalog.",
+    properties: {
+      slug_a: { type: "string", description: "Exact slug for the first product" },
+      slug_b: { type: "string", description: "Exact slug for the second product" },
+      product_a: {
+        type: "string",
+        description: "Fallback: first product name if you do not have the slug",
+      },
+      product_b: {
+        type: "string",
+        description: "Fallback: second product name if you do not have the slug",
+      },
+    },
+    executionMsg: "Comparing those two.",
+  }),
+  customTool({
     name: "choose_color",
     path: "choose-color",
     description:
