@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { catalogFacets, describeRelaxation, relaxSearch } from "@/lib/agni/catalog";
-import { list, num, ok, openFunctionCall, queue, str } from "@/lib/agni/functionKit";
+import { fail, list, num, ok, openFunctionCall, queue, str } from "@/lib/agni/functionKit";
+import { getProduct } from "@/lib/commerce/getProduct";
 
 /**
  * `show_products` — put a filtered listing on the shopper's screen. Loosens the
@@ -12,6 +13,31 @@ export async function POST(request: NextRequest) {
   if (!call.ok) return call.response;
 
   const { args } = call;
+  const requestedSlugs = [
+    str(args, "slug_a", "slugA", "first_product_slug"),
+    str(args, "slug_b", "slugB", "second_product_slug"),
+  ].filter(Boolean);
+
+  if (requestedSlugs.length) {
+    const uniqueSlugs = [...new Set(requestedSlugs)];
+    const missingSlugs = uniqueSlugs.filter((slug) => !getProduct(slug));
+
+    if (missingSlugs.length) {
+      return fail(
+        `I couldn't find ${list(missingSlugs)} in the catalogue. Use exact slugs from search_catalog.`,
+        { missing_slugs: missingSlugs },
+      );
+    }
+
+    const names = uniqueSlugs.map((slug) => getProduct(slug)?.name ?? slug);
+
+    return queue(
+      call.sessionId,
+      { type: "search_products", slugs: uniqueSlugs },
+      `Showing ${list(names)} together now.`,
+    );
+  }
+
   const filters = {
     query: str(args, "query", "q") || undefined,
     brand: str(args, "brand") || undefined,

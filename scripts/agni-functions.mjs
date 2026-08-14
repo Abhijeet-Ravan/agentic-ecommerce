@@ -113,8 +113,12 @@ export const tools = [
     name: "show_products",
     path: "show-products",
     description:
-      "Put a filtered product listing on the shopper's screen. Use when they ask to see a brand, category, colour or price range.",
-    properties: PRODUCT_FILTERS,
+      "Put products on the shopper's screen. Use whenever they ask to show, see, display or pull up products. For two known products, including 'show me both', pass slug_a and slug_b. Showing products is not a comparison.",
+    properties: {
+      ...PRODUCT_FILTERS,
+      slug_a: { type: "string", description: "Exact slug for the first product to show" },
+      slug_b: { type: "string", description: "Exact slug for the second product to show" },
+    },
     executionMsg: "Let me pull those up.",
   }),
   customTool({
@@ -132,7 +136,7 @@ export const tools = [
     name: "compare_products",
     path: "compare-products",
     description:
-      "Compare two real catalogue products side by side using their descriptions, specs, sizes, prices and demo reviews. Use when the shopper asks which of two choices is better, asks to compare them, or seems stuck between two products. Prefer exact slugs from search_catalog.",
+      "Read and compare two catalogue products using descriptions, specs, sizes, prices and demo reviews. Use only when the shopper explicitly asks to compare, asks which is better, or asks for differences. This does not change the screen. Do not use for 'show me both' or other show/see requests.",
     properties: {
       slug_a: { type: "string", description: "Exact slug for the first product" },
       slug_b: { type: "string", description: "Exact slug for the second product" },

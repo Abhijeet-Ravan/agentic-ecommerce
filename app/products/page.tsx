@@ -19,6 +19,10 @@ function optionalNumber(value: string | undefined) {
   return Number.isFinite(number) ? number : undefined;
 }
 
+function slugList(value: string | undefined) {
+  return value?.split(",").map((slug) => slug.trim()).filter(Boolean);
+}
+
 function unique(values: Array<string | undefined>) {
   return [...new Set(values.filter((value): value is string => Boolean(value)))].toSorted(
     (a, b) => a.localeCompare(b),
@@ -33,6 +37,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       ? sortValue
       : "relevance";
   const results = searchProducts({
+    slugs: slugList(first(params.slugs)),
     query: first(params.q),
     brand: first(params.brand),
     gender: first(params.gender),
