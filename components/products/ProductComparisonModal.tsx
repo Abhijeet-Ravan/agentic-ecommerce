@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import StarRating from "@/components/StarRating";
@@ -277,14 +276,12 @@ export default function ProductComparisonModal({
             Choose {alternative.identity.name} when its style, construction or fit better matches your preference.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link
+            <a
               href={`/products/${winner.identity.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex min-h-10 items-center bg-white px-4 text-xs font-semibold text-gray-950 hover:bg-gray-100"
             >
               View recommended product
-            </Link>
+            </a>
           </div>
           <p className="mt-4 text-[10px] text-gray-400">
             Review feedback and performance scores are synthetic demo data.

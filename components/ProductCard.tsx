@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import StarRating from "@/components/StarRating";
 import {
   getAverageRating,
@@ -22,10 +21,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="group relative w-full">
-      <Link
+      <a
         href={`/products/${product.slug}`}
-        target="_blank"
-        rel="noopener noreferrer"
         className="relative z-10 block border border-transparent bg-white px-4 pt-4 group-hover:z-30 group-hover:border-gray-200 group-hover:shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
       >
         {/* PRODUCT IMAGE */}
@@ -98,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className="h-3 w-3 rounded-full bg-black" />{" "}
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   );
 }

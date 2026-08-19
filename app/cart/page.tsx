@@ -64,10 +64,8 @@ export default function CartPage() {
             key={`${product.id}-${item.size ?? "no-size"}`}
             className="grid gap-5 py-6 sm:grid-cols-[120px_1fr_auto] sm:items-center"
           >
-            <Link
+            <a
               href={`/products/${product.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
               className="relative aspect-square"
             >
               <Image
@@ -76,18 +74,16 @@ export default function CartPage() {
                 fill
                 className="object-contain"
               />
-            </Link>
+            </a>
 
             <div>
               <p className="text-xs uppercase text-gray-500">{product.brand}</p>
-              <Link
+              <a
                 href={`/products/${product.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="font-semibold"
               >
                 {product.name}
-              </Link>
+              </a>
               {item.size !== undefined && (
                 <p className="mt-1 text-sm text-gray-600">Size: {item.size}</p>
               )}

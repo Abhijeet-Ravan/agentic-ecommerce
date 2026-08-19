@@ -77,6 +77,6 @@ export async function POST(request: NextRequest) {
   return queue(
     call.sessionId,
     { type: "open_product", slug: product.slug },
-    `Opening ${product.name} in a new tab and closing the comparison. The cart is unchanged. Ask for their size before adding it.`,
+    `Opening ${product.name} and closing the comparison. The cart is unchanged. Ask for their size before adding it.`,
   );
 }
