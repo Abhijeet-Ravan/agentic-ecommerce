@@ -35,6 +35,6 @@ export async function POST(request: NextRequest) {
   return queue(
     call.sessionId,
     { type: "open_product", slug: product.slug },
-    `Opening the ${product.name}, ${product.color ?? "unlisted colour"}, ${money(product.price)}.${sizes.length ? ` Available in sizes ${list(sizes)}.` : ""}`,
+    `Opening the ${product.name} in a new tab, ${product.color ?? "unlisted colour"}, ${money(product.price)}.${sizes.length ? ` Available in sizes ${list(sizes)}.` : ""}`,
     );
 }

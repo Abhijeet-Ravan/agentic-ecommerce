@@ -33,6 +33,10 @@ export default function AgniContextReporter() {
     const controller = new AbortController();
 
     function push() {
+      // With product details in a new tab, only the visible tab should describe
+      // itself as the shopper's current page.
+      if (document.hidden) return;
+
       void fetch("/api/agni/context", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -54,12 +58,14 @@ export default function AgniContextReporter() {
     const heartbeat = window.setInterval(push, HEARTBEAT_MS);
 
     window.addEventListener("agni:refresh-context", push);
+    document.addEventListener("visibilitychange", push);
 
     return () => {
       controller.abort();
       window.clearTimeout(initial);
       window.clearInterval(heartbeat);
       window.removeEventListener("agni:refresh-context", push);
+      document.removeEventListener("visibilitychange", push);
     };
   }, [sessionId, pathname, searchParams, cartItems]);
 

@@ -128,6 +128,29 @@ export default function AgniBridge() {
       return "retry";
     }
 
+    /** Agent-driven product selection leaves the current shopping page intact. */
+    function openProductTab(pending: Pending, slug: string): Attempt {
+      if (pending.pushes > 0) return "done";
+
+      const route = productRoute(slug);
+      const opened = window.open(route, "_blank");
+
+      if (!opened) {
+        return {
+          failed:
+            "The browser blocked the product tab. Ask the shopper to allow pop-ups for this store and try again.",
+        };
+      }
+
+      // Keep the new same-origin tab from retaining a handle back to this one.
+      opened.opener = null;
+      opened.focus();
+      pending.pushes += 1;
+      pending.note = "Opened the product detail page in a new tab.";
+
+      return "done";
+    }
+
     function clickSize(size: number): Attempt {
       if (pageMarker() !== "product") return { failed: "Not on a product page." };
 
@@ -243,7 +266,7 @@ export default function AgniBridge() {
         }
 
         case "open_product":
-          return goTo(pending, productRoute(action.slug), "product", action.slug);
+          return openProductTab(pending, action.slug);
 
         case "open_cart":
           return goTo(pending, "/cart", "cart");
