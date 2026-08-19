@@ -62,6 +62,13 @@ export async function POST(request: NextRequest) {
   // The only value the browser gets to influence here, and it lands in the
   // agent's prompt — trim it and cap the length before forwarding.
   const sessionId = raw.trim().slice(0, 128);
+  const rawCallSessionId =
+    body &&
+    typeof body === "object" &&
+    typeof (body as Record<string, unknown>).call_session_id === "string"
+      ? ((body as Record<string, unknown>).call_session_id as string)
+      : "";
+  const callSessionId = rawCallSessionId.trim().slice(0, 128);
 
   if (!sessionId) {
     return Response.json({ error: "session_id is required." }, { status: 400 });
@@ -79,6 +86,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         type: "web_call",
         agent_id: process.env.AGNI_AGENT_ID,
+        ...(callSessionId ? { call_session_id: callSessionId } : {}),
         metadata: { source: "stride-storefront", session_id: sessionId },
         // The whole link between the voice session and this browser tab. The key
         // here IS the prompt placeholder: `{{session_id}}`. If the two ever drift

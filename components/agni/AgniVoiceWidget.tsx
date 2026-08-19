@@ -9,7 +9,14 @@ import {
   type TranscriptionSegment,
 } from "livekit-client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSessionId } from "@/lib/agni/session";
+import {
+  clearCallSessionId,
+  getCallSessionId,
+  isCallWidgetOpen,
+  setCallSessionId,
+  setCallWidgetOpen,
+  useSessionId,
+} from "@/lib/agni/session";
 
 type Status = "idle" | "connecting" | "live" | "error";
 
@@ -38,19 +45,27 @@ export default function AgniVoiceWidget() {
   const [lines, setLines] = useState<Line[]>([]);
   const roomRef = useRef<Room | null>(null);
   const audioRef = useRef<HTMLDivElement>(null);
+  const startInFlightRef = useRef(false);
+  const autoResumeCheckedRef = useRef(false);
 
   const endCall = useCallback(() => {
     void roomRef.current?.disconnect();
     roomRef.current = null;
     setStatus("idle");
+    setOpen(false);
     setAgentSpeaking(false);
     setMuted(false);
+    setCallWidgetOpen(false);
+    clearCallSessionId();
   }, []);
 
   // Hang up if the shopper closes the tab mid-call.
   useEffect(() => () => void roomRef.current?.disconnect(), []);
 
-  function upsert(segments: TranscriptionSegment[], participant?: Participant) {
+  const upsert = useCallback((
+    segments: TranscriptionSegment[],
+    participant?: Participant,
+  ) => {
     const role: Line["role"] = participant?.isLocal ? "you" : "agent";
 
     setLines((current) => {
@@ -73,31 +88,45 @@ export default function AgniVoiceWidget() {
 
       return next.slice(-MAX_LINES);
     });
-  }
+  }, []);
 
-  async function startCall() {
-    if (!sessionId || status === "connecting" || status === "live") return;
+  const startCall = useCallback(async (resumePreviousCall = false) => {
+    if (
+      !sessionId ||
+      startInFlightRef.current ||
+      status === "connecting" ||
+      status === "live"
+    ) return;
 
+    startInFlightRef.current = true;
     setStatus("connecting");
     setError("");
     setLines([]);
     setOpen(true);
+    setCallWidgetOpen(true);
 
     try {
+      const callSessionId = resumePreviousCall ? getCallSessionId() : "";
       const response = await fetch("/api/agni/call", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ session_id: sessionId }),
+        body: JSON.stringify({
+          session_id: sessionId,
+          ...(callSessionId ? { call_session_id: callSessionId } : {}),
+        }),
       });
       const data: {
         livekitUrl?: string;
         accessToken?: string;
+        callSessionId?: string;
         error?: string;
       } = await response.json();
 
       if (!response.ok || !data.livekitUrl || !data.accessToken) {
         throw new Error(data.error ?? "Could not start the call.");
       }
+
+      if (data.callSessionId) setCallSessionId(data.callSessionId);
 
       const room = new Room();
       roomRef.current = room;
@@ -157,7 +186,31 @@ export default function AgniVoiceWidget() {
       setError(
         cause instanceof Error ? cause.message : "Could not start the call.",
       );
+    } finally {
+      startInFlightRef.current = false;
     }
+  }, [sessionId, status, upsert]);
+
+  // Product links open a fresh tab. If the previous tab had the call widget
+  // open, reconnect immediately and ask create-call to continue that call.
+  useEffect(() => {
+    if (!sessionId || autoResumeCheckedRef.current) return;
+
+    autoResumeCheckedRef.current = true;
+
+    if (isCallWidgetOpen() && getCallSessionId()) {
+      void startCall(true);
+    }
+  }, [sessionId, startCall]);
+
+  function closeWidget() {
+    setOpen(false);
+    setCallWidgetOpen(false);
+  }
+
+  function showWidget() {
+    setOpen(true);
+    setCallWidgetOpen(true);
   }
 
   async function toggleMute() {
@@ -202,7 +255,7 @@ export default function AgniVoiceWidget() {
               </p>
             </div>
             <button
-              onClick={() => setOpen(false)}
+              onClick={closeWidget}
               aria-label="Close assistant"
               className="text-lg leading-none text-gray-500"
             >
@@ -249,7 +302,7 @@ export default function AgniVoiceWidget() {
               </>
             ) : (
               <button
-                onClick={() => void startCall()}
+                onClick={() => void startCall(false)}
                 disabled={status === "connecting"}
                 className="w-full rounded bg-black py-2 text-sm font-semibold text-white disabled:bg-gray-400"
               >
@@ -261,7 +314,11 @@ export default function AgniVoiceWidget() {
       )}
 
       <button
-        onClick={() => (open ? setOpen(false) : void startCall())}
+        onClick={() => {
+          if (open) closeWidget();
+          else if (status === "live" || status === "connecting") showWidget();
+          else void startCall(false);
+        }}
         className="flex items-center gap-2 rounded-full bg-black px-5 py-3 text-sm font-semibold text-white shadow-lg"
       >
         <span aria-hidden>{live ? "🔴" : "🎙"}</span>

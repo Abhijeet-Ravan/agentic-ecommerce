@@ -279,6 +279,8 @@ export default function ProductComparisonModal({
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
               href={`/products/${winner.identity.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex min-h-10 items-center bg-white px-4 text-xs font-semibold text-gray-950 hover:bg-gray-100"
             >
               View recommended product

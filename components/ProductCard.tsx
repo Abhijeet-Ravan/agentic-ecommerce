@@ -24,6 +24,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="group relative w-full">
       <Link
         href={`/products/${product.slug}`}
+        target="_blank"
+        rel="noopener noreferrer"
         className="relative z-10 block border border-transparent bg-white px-4 pt-4 group-hover:z-30 group-hover:border-gray-200 group-hover:shadow-[0_2px_6px_rgba(0,0,0,0.08)]"
       >
         {/* PRODUCT IMAGE */}
