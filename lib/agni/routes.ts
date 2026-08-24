@@ -1,6 +1,6 @@
 import type { ProductSearchFilters } from "@/lib/commerce/types";
 
-const ALLOWED_PREFIXES = ["/", "/products", "/cart", "/checkout"];
+const ALLOWED_PREFIXES = ["/", "/blogs", "/products", "/cart", "/checkout"];
 const SAFE_ROUTE_CHARACTERS = /^[A-Za-z0-9/?=&%._~+,:@-]*$/;
 
 /**

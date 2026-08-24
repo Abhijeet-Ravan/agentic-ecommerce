@@ -8,7 +8,9 @@ import {
   type RemoteTrack,
   type TranscriptionSegment,
 } from "livekit-client";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { setupAgentNavigation } from "@/components/agni/setupAgentNavigation";
 import {
   clearCallSessionId,
   getCallSessionId,
@@ -36,6 +38,7 @@ const MAX_LINES = 40;
  * and to queue actions back to the bridge.
  */
 export default function AgniVoiceWidget() {
+  const router = useRouter();
   const sessionId = useSessionId();
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -45,10 +48,13 @@ export default function AgniVoiceWidget() {
   const [lines, setLines] = useState<Line[]>([]);
   const roomRef = useRef<Room | null>(null);
   const audioRef = useRef<HTMLDivElement>(null);
+  const removeNavigationHandlersRef = useRef<(() => void) | null>(null);
   const startInFlightRef = useRef(false);
   const autoResumeCheckedRef = useRef(false);
 
   const endCall = useCallback(() => {
+    removeNavigationHandlersRef.current?.();
+    removeNavigationHandlersRef.current = null;
     void roomRef.current?.disconnect();
     roomRef.current = null;
     setStatus("idle");
@@ -60,7 +66,13 @@ export default function AgniVoiceWidget() {
   }, []);
 
   // Hang up if the shopper closes the tab mid-call.
-  useEffect(() => () => void roomRef.current?.disconnect(), []);
+  useEffect(
+    () => () => {
+      removeNavigationHandlersRef.current?.();
+      void roomRef.current?.disconnect();
+    },
+    [],
+  );
 
   const upsert = useCallback((
     segments: TranscriptionSegment[],
@@ -171,16 +183,22 @@ export default function AgniVoiceWidget() {
           setAgentSpeaking(speakers.some((speaker) => !speaker.isLocal)),
         )
         .on(RoomEvent.Disconnected, () => {
+          removeNavigationHandlersRef.current?.();
+          removeNavigationHandlersRef.current = null;
           roomRef.current = null;
           setStatus("idle");
           setAgentSpeaking(false);
         });
 
       await room.connect(data.livekitUrl, data.accessToken);
+      removeNavigationHandlersRef.current = setupAgentNavigation(room, router);
       await room.localParticipant.setMicrophoneEnabled(true);
 
       setStatus("live");
     } catch (cause) {
+      removeNavigationHandlersRef.current?.();
+      removeNavigationHandlersRef.current = null;
+      void roomRef.current?.disconnect();
       roomRef.current = null;
       setStatus("error");
       setError(
@@ -189,7 +207,7 @@ export default function AgniVoiceWidget() {
     } finally {
       startInFlightRef.current = false;
     }
-  }, [sessionId, status, upsert]);
+  }, [router, sessionId, status, upsert]);
 
   // Product links open a fresh tab. If the previous tab had the call widget
   // open, reconnect immediately and ask create-call to continue that call.
