@@ -69,6 +69,14 @@ export async function POST(request: NextRequest) {
       ? ((body as Record<string, unknown>).call_session_id as string)
       : "";
   const callSessionId = rawCallSessionId.trim().slice(0, 128);
+  const metadata =
+    body &&
+    typeof body === "object" &&
+    (body as Record<string, unknown>).metadata &&
+    typeof (body as Record<string, unknown>).metadata === "object"
+      ? ((body as Record<string, unknown>).metadata as Record<string, unknown>)
+      : null;
+  const enableBrowserNavigation = metadata?.enable_browser_navigation === true;
 
   if (!sessionId) {
     return Response.json({ error: "session_id is required." }, { status: 400 });
@@ -90,7 +98,7 @@ export async function POST(request: NextRequest) {
         metadata: {
           source: "stride-storefront",
           session_id: sessionId,
-          enable_browser_navigation: true,
+          enable_browser_navigation: enableBrowserNavigation,
         },
         // The whole link between the voice session and this browser tab. The key
         // here IS the prompt placeholder: `{{session_id}}`. If the two ever drift
