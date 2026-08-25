@@ -87,7 +87,11 @@ export async function POST(request: NextRequest) {
         type: "web_call",
         agent_id: process.env.AGNI_AGENT_ID,
         ...(callSessionId ? { call_session_id: callSessionId } : {}),
-        metadata: { source: "stride-storefront", session_id: sessionId },
+        metadata: {
+          source: "stride-storefront",
+          session_id: sessionId,
+          enable_browser_navigation: true,
+        },
         // The whole link between the voice session and this browser tab. The key
         // here IS the prompt placeholder: `{{session_id}}`. If the two ever drift
         // apart the substitution silently yields an empty string, and every

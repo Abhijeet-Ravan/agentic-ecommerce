@@ -43,3 +43,25 @@ body {
     box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.18);
   }
 }
+
+@keyframes agniGlowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    outline: 2px solid #6366f1;
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(99, 102, 241, 0);
+    outline: 2px solid #6366f1;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    outline: 2px solid transparent;
+  }
+}
+
+/* Visual cue for elements selected through LiveKit browser-navigation RPCs. */
+.agni-agent-highlight {
+  animation: agniGlowPulse 1.5s infinite !important;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
