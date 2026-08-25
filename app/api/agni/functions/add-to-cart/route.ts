@@ -34,6 +34,13 @@ export async function POST(request: NextRequest) {
 
   const sizes = product.sizes ?? [];
   const size = num(call.args, "size");
+  const rawQuantity = num(call.args, "quantity") ?? 1;
+
+  if (!Number.isInteger(rawQuantity) || rawQuantity < 1 || rawQuantity > 20) {
+    return fail("Quantity must be a whole number from 1 to 20.");
+  }
+
+  const quantity = rawQuantity;
 
   if (sizes.length && size === undefined) {
     return ok(
@@ -51,13 +58,18 @@ export async function POST(request: NextRequest) {
 
   const existing = cartState(call.sessionId);
   const others = existing.lines.filter(({ product: line }) => line.slug !== product.slug);
-  const total = existing.subtotal + product.price;
-  const added = `${product.name}${size === undefined ? "" : ` in size ${size}`}, ${money(product.price)}`;
+  const total = existing.subtotal + product.price * quantity;
+  const added = `${quantity} ${quantity === 1 ? "pair" : "pairs"} of ${product.name}${size === undefined ? "" : ` in size ${size}`}, ${money(product.price * quantity)}`;
 
   return queueAll(
     call.sessionId,
     [
-      { type: "add_to_cart", slug: product.slug, ...(size === undefined ? {} : { size }) },
+      {
+        type: "add_to_cart",
+        slug: product.slug,
+        quantity,
+        ...(size === undefined ? {} : { size }),
+      },
       { type: "open_cart" },
     ],
     others.length

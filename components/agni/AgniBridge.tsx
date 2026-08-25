@@ -352,7 +352,9 @@ export default function AgniBridge() {
             if (!button) return "retry";
 
             pending.attemptsBefore = Number(button.dataset.agniAttempts ?? "0");
-            button.click();
+            for (let count = 0; count < action.quantity; count += 1) {
+              button.click();
+            }
             pending.step = 3;
             return "retry";
           }
@@ -362,7 +364,7 @@ export default function AgniBridge() {
             element('[data-agni-id="product.addToCart"]')?.dataset.agniAttempts ?? "0",
           );
 
-          if (pressed <= (pending.attemptsBefore ?? 0)) return "retry";
+          if (pressed < (pending.attemptsBefore ?? 0) + action.quantity) return "retry";
 
           const message = element('[data-agni-id="product.message"]')?.textContent?.trim();
 
@@ -370,7 +372,7 @@ export default function AgniBridge() {
 
           if (message.startsWith("Please")) return { failed: message };
 
-          pending.note = "Added to the cart.";
+          pending.note = `Added ${action.quantity} to the cart.`;
           return "done";
         }
 

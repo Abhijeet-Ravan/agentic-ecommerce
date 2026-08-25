@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { setupAgentNavigation } from "@/components/agni/setupAgentNavigation";
+import { useCart } from "@/context/CartContext";
 import {
   clearCallSessionId,
   getCallSessionId,
@@ -39,6 +40,7 @@ const MAX_LINES = 40;
  */
 export default function AgniVoiceWidget() {
   const router = useRouter();
+  const cart = useCart();
   const sessionId = useSessionId();
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -47,10 +49,15 @@ export default function AgniVoiceWidget() {
   const [agentSpeaking, setAgentSpeaking] = useState(false);
   const [lines, setLines] = useState<Line[]>([]);
   const roomRef = useRef<Room | null>(null);
+  const cartRef = useRef(cart);
   const audioRef = useRef<HTMLDivElement>(null);
   const removeNavigationHandlersRef = useRef<(() => void) | null>(null);
   const startInFlightRef = useRef(false);
   const autoResumeCheckedRef = useRef(false);
+
+  useEffect(() => {
+    cartRef.current = cart;
+  }, [cart]);
 
   const endCall = useCallback(() => {
     removeNavigationHandlersRef.current?.();
@@ -194,7 +201,11 @@ export default function AgniVoiceWidget() {
         });
 
       await room.connect(data.livekitUrl, data.accessToken);
-      removeNavigationHandlersRef.current = setupAgentNavigation(room, router);
+      removeNavigationHandlersRef.current = setupAgentNavigation(
+        room,
+        router,
+        () => cartRef.current,
+      );
       await room.localParticipant.setMicrophoneEnabled(true);
 
       setStatus("live");
