@@ -125,6 +125,9 @@ export default function AgniVoiceWidget() {
         body: JSON.stringify({
           session_id: sessionId,
           ...(callSessionId ? { call_session_id: callSessionId } : {}),
+          metadata: {
+            enable_browser_navigation: true,
+          },
         }),
       });
       const data: {
