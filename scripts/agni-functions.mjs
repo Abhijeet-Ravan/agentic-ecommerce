@@ -97,7 +97,7 @@ export const tools = [
     name: "get_page_context",
     path: "get-page-context",
     description:
-      "Read what the shopper is looking at right now — the page, the products on screen, their cart, and how your last action turned out. Call before describing anything, and again after every action you take.",
+      "READ ONLY: inspect the current page, visible products, cart, and recent action results. This never changes the browser. For a screen-relative action such as 'open the first one', call this first to get the slug, then call the action tool in the same turn. Never claim a page/cart change from this tool alone.",
     timeoutMs: 5000,
     speakAfterExecution: false,
   }),
@@ -125,11 +125,12 @@ export const tools = [
     name: "open_product",
     path: "open-product",
     description:
-      "Open one product's page so the shopper can see it in detail. Use when they pick a specific item. Prefer the slug from search_catalog; a spoken name also works.",
+      "REQUIRED ACTION for 'open/show details/the first one/the blue one' when one specific product is chosen. Opens that product page. A spoken acknowledgement does not navigate. Get the exact slug from search_catalog or get_page_context, then call this tool in the same turn.",
     properties: {
       slug: { type: "string", description: "Exact slug from search_catalog" },
       name: { type: "string", description: "The product name as the shopper said it" },
     },
+    required: ["slug"],
     executionMsg: "Opening that one now.",
   }),
   customTool({
@@ -215,11 +216,13 @@ export const tools = [
     name: "add_to_cart",
     path: "add-to-cart",
     description:
-      "Add the product to the shopper's cart and open the cart page in one step — do NOT call open_cart afterwards. Only call once you know their size; it will refuse otherwise. The reply tells you the new total and what else is already in the cart, so you can ask whether they want all of it.",
+      "REQUIRED ACTION whenever the shopper confirms adding a product and its size. Never say an item was added or quote a new total unless this tool returned success. Adds the requested quantity and opens the cart; do NOT call open_cart afterwards.",
     properties: {
       slug: { type: "string", description: "Defaults to the product currently open" },
       size: { type: "number", description: "UK size, e.g. 8" },
+      quantity: { type: "number", description: "Number of pairs to add; defaults to 1" },
     },
+    required: ["size"],
     executionMsg: "Adding that to your cart.",
   }),
   customTool({

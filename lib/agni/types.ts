@@ -13,7 +13,7 @@ export type AgniAction =
   | { type: "open_product"; slug: string }
   | { type: "select_color"; color: string }
   | { type: "select_size"; size: number }
-  | { type: "add_to_cart"; slug?: string; size?: number }
+  | { type: "add_to_cart"; slug?: string; size?: number; quantity: number }
   | { type: "open_cart" }
   | { type: "checkout" }
   | { type: "remove_from_cart"; slug: string; size?: number }
@@ -225,6 +225,7 @@ export function parseAction(input: unknown): ParsedAction {
           type: "add_to_cart",
           slug: text(body.slug),
           size: number(body.size),
+          quantity: Math.max(1, Math.min(20, Math.round(number(body.quantity) ?? 1))),
         }),
       };
 
