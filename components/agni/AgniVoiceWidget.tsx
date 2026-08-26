@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ConnectionState,
   Room,
   RoomEvent,
   Track,
@@ -213,6 +214,13 @@ export default function AgniVoiceWidget() {
         router,
         () => cartRef.current,
       );
+
+      // connect() normally resolves only after this state is reached, but an
+      // unload or transport loss can race the next publish. Never ask LiveKit
+      // to create the microphone track unless its engine is still connected.
+      if (room.state !== ConnectionState.Connected) {
+        throw new Error("The voice connection ended before the microphone was ready.");
+      }
       await room.localParticipant.setMicrophoneEnabled(true);
       if (connectionAttemptRef.current !== attempt || roomRef.current !== room) {
         await room.disconnect();
