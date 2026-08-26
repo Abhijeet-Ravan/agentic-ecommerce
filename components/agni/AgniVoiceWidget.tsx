@@ -45,18 +45,14 @@ export default function AgniVoiceWidget() {
   const router = useRouter();
   const cart = useCart();
   const sessionId = useSessionId();
-  const [initialActiveCall] = useState<ActiveWebCallSession | null>(
-    getActiveWebCallSession,
-  );
-  const hasInitialActiveCall = initialActiveCall !== null;
-  const [status, setStatus] = useState<Status>(
-    hasInitialActiveCall ? "reconnecting" : "idle",
-  );
+  const [initialActiveCall, setInitialActiveCall] = useState<
+    ActiveWebCallSession | null | undefined
+  >(undefined);
+  const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
-  const [open, setOpen] = useState(
-    hasInitialActiveCall && isCallWidgetOpen(),
-  );
+  const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [audioBlocked, setAudioBlocked] = useState(false);
   const [agentSpeaking, setAgentSpeaking] = useState(false);
   const [lines, setLines] = useState<Line[]>([]);
   const roomRef = useRef<Room | null>(null);
@@ -71,6 +67,18 @@ export default function AgniVoiceWidget() {
   useEffect(() => {
     cartRef.current = cart;
   }, [cart]);
+
+  // Client Components are pre-rendered on the server, where sessionStorage is
+  // unavailable. Read it after hydration so the first client render matches
+  // the server and then start recovery without creating a new call.
+  useEffect(() => {
+    const activeCall = getActiveWebCallSession();
+    setInitialActiveCall(activeCall);
+    if (!activeCall) return;
+
+    setStatus("reconnecting");
+    setOpen(isCallWidgetOpen());
+  }, []);
 
   const upsert = useCallback((
     segments: TranscriptionSegment[],
@@ -165,6 +173,9 @@ export default function AgniVoiceWidget() {
       .on(RoomEvent.ActiveSpeakersChanged, (speakers: Participant[]) =>
         setAgentSpeaking(speakers.some((speaker) => !speaker.isLocal)),
       )
+      .on(RoomEvent.AudioPlaybackStatusChanged, (playable: boolean) => {
+        if (roomRef.current === room) setAudioBlocked(!playable);
+      })
       .on(RoomEvent.Reconnecting, () => {
         if (roomRef.current === room) setStatus("reconnecting");
       })
@@ -178,6 +189,7 @@ export default function AgniVoiceWidget() {
         roomRef.current = null;
         setAgentSpeaking(false);
         setMuted(false);
+        setAudioBlocked(false);
 
         if (recoveringRef.current) {
           setStatus("reconnecting");
@@ -208,6 +220,7 @@ export default function AgniVoiceWidget() {
       }
 
       setMuted(false);
+      setAudioBlocked(!room.canPlaybackAudio);
       setStatus("live");
       return true;
     } catch (cause) {
@@ -233,6 +246,7 @@ export default function AgniVoiceWidget() {
     setOpen(false);
     setAgentSpeaking(false);
     setMuted(false);
+    setAudioBlocked(false);
     setCallWidgetOpen(false);
     clearActiveWebCallSession();
     clearCallSessionId();
@@ -307,12 +321,11 @@ export default function AgniVoiceWidget() {
     }
   }, [connectRoom, sessionId]);
 
-  // First try the saved LiveKit credentials. Some Agni/LiveKit deployments
-  // invalidate that participant token as soon as the old page transport dies;
-  // in that case, exchange the existing call_session_id for fresh credentials
-  // rather than creating an unrelated conversation.
+  // Refresh recovery is reconnect-only. Never call the create-call endpoint
+  // here: if these credentials are no longer valid, the shopper must explicitly
+  // start a new call rather than silently creating another conversation.
   useEffect(() => {
-    if (!sessionId) return;
+    if (!sessionId || initialActiveCall === undefined) return;
     const activeCall = initialActiveCall;
     if (!activeCall) return;
 
@@ -323,63 +336,12 @@ export default function AgniVoiceWidget() {
     setOpen(isCallWidgetOpen());
 
     void (async () => {
-      try {
-        await connectRoom(activeCall.livekitUrl, activeCall.token);
-        if (requestAttemptRef.current !== requestAttempt) return;
-        setStatus("reconnecting");
-        await new Promise((resolve) => window.setTimeout(resolve, RECONNECT_SETTLE_MS));
-        if (requestAttemptRef.current !== requestAttempt) return;
-        if (!roomRef.current) throw new Error("The previous room has ended.");
-        setStatus("live");
-        return;
-      } catch (directReconnectError) {
-        if (
-          requestAttemptRef.current !== requestAttempt ||
-          !activeCall.callSessionId
-        ) {
-          throw directReconnectError;
-        }
-      }
-
-      setStatus("reconnecting");
-      const response = await fetch("/api/agni/call", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          session_id: sessionId,
-          call_session_id: activeCall.callSessionId,
-          metadata: {
-            enable_browser_navigation: true,
-            current_url: window.location.href,
-          },
-        }),
-      });
-      const data: {
-        livekitUrl?: string;
-        accessToken?: string;
-        callSessionId?: string;
-        error?: string;
-      } = await response.json();
-
-      if (!response.ok || !data.livekitUrl || !data.accessToken) {
-        throw new Error(data.error ?? "Could not resume the call.");
-      }
-      if (requestAttemptRef.current !== requestAttempt) return;
-
-      const callSessionId = data.callSessionId ?? activeCall.callSessionId;
-      setCallSessionId(callSessionId);
-      setActiveWebCallSession({
-        livekitUrl: data.livekitUrl,
-        token: data.accessToken,
-        callSessionId,
-        startedAt: activeCall.startedAt,
-      });
-      await connectRoom(data.livekitUrl, data.accessToken);
+      await connectRoom(activeCall.livekitUrl, activeCall.token);
       if (requestAttemptRef.current !== requestAttempt) return;
       setStatus("reconnecting");
       await new Promise((resolve) => window.setTimeout(resolve, RECONNECT_SETTLE_MS));
       if (requestAttemptRef.current !== requestAttempt) return;
-      if (!roomRef.current) throw new Error("The resumed room ended unexpectedly.");
+      if (!roomRef.current) throw new Error("The previous room has ended.");
       setStatus("live");
     })()
       .catch((cause) => {
@@ -421,6 +383,18 @@ export default function AgniVoiceWidget() {
     const next = !muted;
     await room.localParticipant.setMicrophoneEnabled(!next);
     setMuted(next);
+  }
+
+  async function resumeAudio() {
+    const room = roomRef.current;
+    if (!room) return;
+
+    try {
+      await room.startAudio();
+      setAudioBlocked(!room.canPlaybackAudio);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not resume audio.");
+    }
   }
 
   if (!sessionId) return null;
@@ -468,6 +442,14 @@ export default function AgniVoiceWidget() {
 
           <div className="max-h-72 space-y-3 overflow-y-auto px-4 py-3 text-sm">
             {error && <p className="text-red-600">{error}</p>}
+            {live && audioBlocked && (
+              <button
+                onClick={() => void resumeAudio()}
+                className="w-full rounded bg-amber-500 px-3 py-2 font-semibold text-black"
+              >
+                Click to resume audio
+              </button>
+            )}
             {!error && !lines.length && (
               <p className="text-gray-500">
                 {status === "reconnecting"
