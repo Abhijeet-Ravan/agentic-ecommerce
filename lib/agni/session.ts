@@ -5,6 +5,15 @@ import { useSyncExternalStore } from "react";
 const STORAGE_KEY = "snowie_session_id";
 const CALL_SESSION_STORAGE_KEY = "agni_call_session_id";
 const WIDGET_OPEN_STORAGE_KEY = "agni_widget_open";
+const ACTIVE_WEB_CALL_STORAGE_KEY = "agni_active_webcall_session";
+const ACTIVE_WEB_CALL_MAX_AGE_MS = 60 * 60 * 1000;
+
+export type ActiveWebCallSession = {
+  livekitUrl: string;
+  token: string;
+  callSessionId?: string;
+  startedAt: number;
+};
 
 let cached = "";
 
@@ -93,6 +102,75 @@ export function setCallWidgetOpen(open: boolean) {
 
   try {
     window.localStorage.setItem(WIDGET_OPEN_STORAGE_KEY, String(open));
+  } catch {
+    /* Storage can be unavailable in private or restricted browser contexts. */
+  }
+}
+
+/**
+ * LiveKit credentials for an active call, scoped to this browser tab. This is
+ * intentionally sessionStorage: a refresh can rejoin the room, but a second
+ * tab must not silently join the shopper's microphone session.
+ */
+export function getActiveWebCallSession(): ActiveWebCallSession | null {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const raw = window.sessionStorage.getItem(ACTIVE_WEB_CALL_STORAGE_KEY);
+    if (!raw) return null;
+
+    const value: unknown = JSON.parse(raw);
+    if (!value || typeof value !== "object") throw new Error("Invalid call session");
+
+    const session = value as Record<string, unknown>;
+    const livekitUrl = session.livekitUrl;
+    const token = session.token;
+    const callSessionId = session.callSessionId;
+    const startedAt = session.startedAt;
+
+    if (
+      typeof livekitUrl !== "string" ||
+      !livekitUrl ||
+      typeof token !== "string" ||
+      !token ||
+      (callSessionId !== undefined && typeof callSessionId !== "string") ||
+      typeof startedAt !== "number"
+    ) {
+      throw new Error("Invalid call session");
+    }
+
+    const age = Date.now() - startedAt;
+    if (!Number.isFinite(age) || age < 0 || age >= ACTIVE_WEB_CALL_MAX_AGE_MS) {
+      throw new Error("Expired call session");
+    }
+
+    return {
+      livekitUrl,
+      token,
+      ...(callSessionId ? { callSessionId } : {}),
+      startedAt,
+    };
+  } catch {
+    clearActiveWebCallSession();
+    return null;
+  }
+}
+
+export function setActiveWebCallSession(session: ActiveWebCallSession) {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.sessionStorage.setItem(ACTIVE_WEB_CALL_STORAGE_KEY, JSON.stringify(session));
+  } catch {
+    /* The call still works when storage is unavailable; refresh recovery does not. */
+  }
+}
+
+export function clearActiveWebCallSession() {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.sessionStorage.removeItem(ACTIVE_WEB_CALL_STORAGE_KEY);
   } catch {
     /* Storage can be unavailable in private or restricted browser contexts. */
   }

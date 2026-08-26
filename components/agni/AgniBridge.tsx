@@ -128,7 +128,7 @@ export default function AgniBridge() {
       return "retry";
     }
 
-    /** Product pages use a traditional full-document navigation. */
+    /** Product pages use App Router navigation so the root-mounted call stays alive. */
     function openProductPage(pending: Pending, slug: string): Attempt {
       const route = productRoute(slug);
       const arrived =
@@ -139,7 +139,7 @@ export default function AgniBridge() {
 
       if (pending.pushes === 0) {
         pending.pushes += 1;
-        window.location.assign(route);
+        latest.current.router.push(route);
       }
 
       return "retry";
