@@ -6,6 +6,7 @@ import { agniConfig } from "@/components/agni/config";
 import { useCart } from "@/context/CartContext";
 import {
   comparisonRoute,
+  isProductDetailRoute,
   productRoute,
   safeInternalRoute,
   sameRoute,
@@ -119,30 +120,21 @@ export default function AgniBridge() {
 
       if (arrived) return "done";
 
-      // Push once, then re-push only if the navigation seems to have been lost.
+      // Match a shopper clicking the app's plain product links: entering a
+      // product-detail page is a full document navigation. Other destinations
+      // retain the faster App Router transition.
       if (pending.pushes === 0 || pending.attempts % 12 === 0) {
         pending.pushes += 1;
-        latest.current.router.push(route);
+        if (isProductDetailRoute(route)) window.location.assign(route);
+        else latest.current.router.push(route);
       }
 
       return "retry";
     }
 
-    /** Product pages use App Router navigation so the root-mounted call stays alive. */
+    /** Product pages reload the document, matching manual product-link clicks. */
     function openProductPage(pending: Pending, slug: string): Attempt {
-      const route = productRoute(slug);
-      const arrived =
-        sameRoute(currentUrl(), route) &&
-        Boolean(element(`[data-agni-page="product"][data-agni-slug="${CSS.escape(slug)}"]`));
-
-      if (arrived) return "done";
-
-      if (pending.pushes === 0) {
-        pending.pushes += 1;
-        latest.current.router.push(route);
-      }
-
-      return "retry";
+      return goTo(pending, productRoute(slug), "product", slug);
     }
 
     function clickSize(size: number): Attempt {
