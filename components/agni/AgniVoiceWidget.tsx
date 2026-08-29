@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { setupAgentNavigation } from "@/components/agni/setupAgentNavigation";
 import { useCart } from "@/context/CartContext";
-import { safeInternalRoute } from "@/lib/agni/routes";
+import { isProductDetailRoute, safeInternalRoute } from "@/lib/agni/routes";
 import {
   clearActiveWebCallSession,
   clearCallSessionId,
@@ -154,7 +154,10 @@ export default function AgniVoiceWidget() {
             const route = requested.origin === window.location.origin
               ? safeInternalRoute(`${requested.pathname}${requested.search}`)
               : null;
-            if (route) router.push(route);
+            if (route) {
+              if (isProductDetailRoute(route)) window.location.assign(route);
+              else router.push(route);
+            }
             return;
           }
 

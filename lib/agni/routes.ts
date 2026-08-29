@@ -25,6 +25,13 @@ export function productRoute(slug: string) {
   return `/products/${encodeURIComponent(slug)}`;
 }
 
+/** Product-detail routes intentionally use a full document navigation. */
+export function isProductDetailRoute(route: string) {
+  const [path] = route.split("?");
+
+  return path.startsWith("/products/") && path.length > "/products/".length;
+}
+
 export function comparisonRoute(slugA: string, slugB: string, returnToCart = false) {
   const slugs = [slugA, slugB].join(",");
   const params = new URLSearchParams({ slugs, compare: slugs });

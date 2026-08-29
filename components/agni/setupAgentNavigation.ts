@@ -3,6 +3,7 @@
 import type { Room, RpcInvocationData } from "livekit-client";
 import {
   comparisonRoute,
+  isProductDetailRoute,
   productRoute,
   safeInternalRoute,
   searchRoute,
@@ -162,6 +163,16 @@ async function catalogProduct(slug: string) {
   return request.ok ? result.product : undefined;
 }
 
+function navigate(router: NavigationRouter, route: string) {
+  if (isProductDetailRoute(route)) {
+    // Let the RPC response resolve before replacing this document. The active
+    // call credentials are persisted and the next document reconnects.
+    window.setTimeout(() => window.location.assign(route), 0);
+  } else {
+    router.push(route);
+  }
+}
+
 /** Register every browser capability exposed to the voice agent through LiveKit RPC. */
 export function setupAgentNavigation(
   room: Room,
@@ -172,7 +183,7 @@ export function setupAgentNavigation(
     const requestedPath = stringValue(payload(data), "path");
     const path = requestedPath ? safeInternalRoute(requestedPath) : null;
     if (!path) return response({ success: false, error: "Invalid internal path" });
-    router.push(path);
+    navigate(router, path);
     return response({ success: true, path });
   });
 
@@ -225,7 +236,7 @@ export function setupAgentNavigation(
 
   room.registerRpcMethod("show_products", async (data) => {
     const route = searchRoute(filtersFrom(payload(data)));
-    router.push(route);
+    navigate(router, route);
     return response({ success: true, route });
   });
 
@@ -235,7 +246,7 @@ export function setupAgentNavigation(
       return response({ success: false, error: "Product not found" });
     }
     const route = productRoute(slug);
-    router.push(route);
+    navigate(router, route);
     return response({ success: true, slug, route });
   });
 
@@ -247,7 +258,7 @@ export function setupAgentNavigation(
       return response({ success: false, error: "Two product slugs are required" });
     }
     const route = comparisonRoute(slugA, slugB);
-    router.push(route);
+    navigate(router, route);
     return response({ success: true, route, slug_a: slugA, slug_b: slugB });
   });
 
@@ -262,7 +273,7 @@ export function setupAgentNavigation(
       (choice === "second" ? compared?.[1] : compared?.[0]);
     if (!slug) return response({ success: false, error: "No compared product selected" });
     const route = productRoute(slug);
-    router.push(route);
+    navigate(router, route);
     return response({ success: true, slug, route });
   });
 
@@ -305,7 +316,7 @@ export function setupAgentNavigation(
     const slug = currentProductSlug();
     if (!slug) {
       const route = searchRoute({ color });
-      router.push(route);
+      navigate(router, route);
       return response({ success: true, route });
     }
     const request = await fetch(
@@ -315,7 +326,7 @@ export function setupAgentNavigation(
     const route = result.kind === "product" && result.product
       ? productRoute(result.product.slug)
       : result.route ?? searchRoute({ color });
-    router.push(route);
+    navigate(router, route);
     return response({ success: true, route, ...result });
   });
 
